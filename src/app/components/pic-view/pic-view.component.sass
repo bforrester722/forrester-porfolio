@@ -1,0 +1,44 @@
+@import "../../../styles.sass"
+
+mat-icon 
+	margin: 	 4px
+	z-index: 	 5
+	opacity: 	 .6
+	font-size: 80px
+	&:hover 
+		cursor: pointer
+
+.right-arrow 
+	position: absolute
+	top: 			calc(50% - 40px)
+	right: 		38px
+
+.left-arrow 
+	position: absolute
+	top: 			calc(50% - 40px)
+	left: 		-16px
+
+.content 
+	display: 					flex
+	flex-wrap: 				wrap
+	flex-direction: 	column
+	justify-content:	center
+	align-items: 			center
+	height:						calc(100% - 40px)
+	width: 						100%
+	max-width: 				1000px
+	position: 				relative
+
+img 
+	width: 					calc(100% - 96px)
+	max-width: 			800px
+	max-height: 		400px
+	object-fit: 		contain
+	user-select: 		none
+	pointer-events: none
+
+app-lottie
+	width: 			calc(100% - 96px)
+	height: 		calc(100% - 24px)
+	pointer-events: none
+

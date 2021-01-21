@@ -1,0 +1,30 @@
+ [
+ 	{
+ 		"index": 0,
+ 		"name": "Alpha Strike Games",
+ 		"type": "portfolio",
+ 		"viewer": "doc",
+ 		"src": "https://alphastrikegames.app/imgs/light-mode-logo-300.png",
+ 		"paragraph": "ASG is an e-commerce progressive web app built with Polymer 3 with Firebase backend. It uses Braintree api to handle payments. Sendgrid for emails. Scryfall for updating price on magic cards and card data",
+ 		"link": "https://alphastrikegames.app/"
+ 	}, 
+ 	{
+ 		"index": 1,
+ 		"name": "React Demo",
+ 		"type": "portfolio",
+ 		"viewer": "doc",
+ 		"src": "https://firebasestorage.googleapis.com/v0/b/forrester-angular.appspot.com/o/imgs%2Freact%20demo.svg?alt=media&token=09ed8c85-cbae-4446-bdc0-98b5efc7819a",
+ 		"paragraph": "Polymer 3 is not that popular and employers are not looking for that skillset, this lead me to this project. Built with React, Firebase, and Webpack. Google Lighthouse of all 100's.",
+ 		"link": "https://forr-resume.web.app/home"
+ 	}, 
+ 	{
+ 		"index": 2,
+ 		"name": "Dragon's Hoard Gaming",
+ 		"type": "portfolio",
+ 		"viewer": "doc",
+ 		"src": "https://cdn.shopify.com/s/files/1/0506/0227/9102/files/new_dhg_logo-01_360x.png?v=1608157346",
+ 		"paragraph": "Shopify website I setup for my brother. Worked with Liquify to change aspects of website functionality and UI. Made pixel art animations on home page ",
+ 		"link": "https://dragonshoardgaming.com/"
+ 	}
+
+ ]

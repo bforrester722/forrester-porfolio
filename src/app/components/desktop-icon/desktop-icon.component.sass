@@ -1,0 +1,48 @@
+
+.desktop-icon-wrapper 
+	position: 			absolute
+	top: 						0
+	left: 					0
+	height: 				calc(100vh - 24px)
+	flex-wrap: 			wrap
+	display: 				inline-flex
+	flex-direction: column
+
+.desktop-icon
+	display: 				flex
+	flex-direction: column
+	align-items: 		center
+	width: 					64px
+	margin: 				24px
+	height: 				100px
+	padding-left:		12px
+	div
+		text-align: 	center
+		user-select: 	none
+	&:hover
+		cursor: pointer
+
+mat-icon
+	color: white
+	font-size: 64px
+	width: 		 64px
+	height: 	 64px
+
+.title 
+	color: 				white
+	font-size: 		13px
+	text-shadow: 	2px 2px black
+
+@media (min-width: 500px)
+	.desktop-icon
+		width: 				96px
+		margin: 			24px
+		height: 			130px
+
+	mat-icon
+		font-size: 96px
+		width: 		 96px
+		height: 	 96px
+
+	.title
+		font-size: 15px
