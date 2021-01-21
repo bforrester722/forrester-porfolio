@@ -1,0 +1,38 @@
+[	
+		{
+			"id": 1, 
+			"option": "more",
+			"name": "portfolio",
+			"icon": "folder_open"
+		},
+		{
+			"id": 2, 
+			"option": "more",
+			"name": "animations",
+			"icon": "live_tv"
+		},
+		{
+			"id": 3, 
+			"option": "more",
+			"name": "icons",
+			"icon": "adb"
+		},
+		{
+			"id": 4, 
+			"option": "disable",
+			"name": "games",
+			"icon": "games"
+		},
+		{
+			"id": 5, 
+			"option": "disable",
+			"name": "settings",
+			"icon": "settings"
+		},
+		{
+			"id": 6, 
+			"option": "disable",
+			"name": "shut down",
+			"icon": ""
+		}
+]

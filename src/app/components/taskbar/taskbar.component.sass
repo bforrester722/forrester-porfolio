@@ -1,0 +1,117 @@
+@import "../../../styles.sass"
+
+.taskbar 
+  display: 					flex
+  align-items:      center
+  height:   				42px
+  background-color: $accent-color
+  z-index:          5
+  box-shadow: inset white 0px 2px 1px
+
+.start-btn
+ display: 					flex
+ justify-content: 	center
+ align-items: 			center
+ height: 					 	calc(100% - 8px)
+ width: 					 	72px
+ background-color: 	$accent-color
+ box-shadow:       	$btn-shadow
+ margin-left:       4px
+ user-select:       none
+ &:hover 
+  cursor: pointer
+  background-color: $accent-color
+
+.tab
+ background-color: 	$accent-color
+ margin-left:       6px
+ white-space: 			nowrap
+ overflow: 					hidden
+ text-overflow: 		ellipsis
+ text-align:				center
+ padding:						7px 8px
+ box-shadow:        $btn-shadow
+ user-select:       none
+ &:hover 
+  cursor: pointer
+  background-color: $accent-color
+
+.date 
+ position:  			absolute
+ top:							0
+ right:						16px
+ display: 			 	flex
+ flex-direction: 	column
+ justify-content: center
+ padding: 				2px
+ text-align: 			center
+
+.menu 
+ opacity: 0
+ transition:        all .25s
+ width:            180px
+ background-color: whitesmoke
+ position:         absolute
+ bottom:           42px
+ user-select:       none
+ pointer-events: none
+ &:hover 
+  cursor: pointer
+
+.start-menu 
+ transform:  translateY(100%)
+ left:       4px
+ box-shadow: $shadow
+
+.open-menu 
+ box-shadow:        $btn-shadow
+ transform: translateY(0)
+ opacity:  1
+ pointer-events: all
+
+.menu-item 
+ display: flex
+ align-items: center
+ justify-content: space-between
+ padding-right: 8px
+ margin-right: 3px
+ &:hover 
+  background-color: $accent-color
+
+.menu-icon-name-wrapper
+ display: flex
+ align-items: center
+
+mat-icon 
+ padding-left: 8px
+ 
+.menu-name 
+ padding: 8px 
+
+.second-menu 
+ height:           216px
+ overflow-y:       scroll
+ transform:        translateX(-10%)
+ left:             184px
+
+
+.second-menu-item
+ padding-left: 8px
+ &:hover 
+  cursor: pointer
+  background-color: $accent-color
+
+.open-second 
+ transform: translateX(0)
+ opacity:  1
+ pointer-events: unset
+
+.disable
+  opacity: .5
+
+@media (min-width: 500px)
+  .start-menu
+    width:            216px
+  .second-menu 
+    width:            216px
+    left:             220px

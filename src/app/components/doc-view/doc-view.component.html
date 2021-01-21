@@ -1,0 +1,32 @@
+<div class="doc-content"  [ngStyle]="{'font-size':width > 800 ? 20+'px' : 14+'px' }">
+
+	<div class="img-wrapper">
+		<img *ngIf="project.src" 
+					src="{{project.src}}" 
+					draggable="false"
+					[ngStyle]="{'max-height':width > 800 ? 256+'px' : 192+'px' }">
+	</div>
+
+	<p class="main-paragraph">{{project.paragraph}}</p>
+	
+	<div *ngIf="project.todos">
+		<p class="todo-title">Todo</p>
+		<ul *ngFor="let item of project.todos">
+			<li [ngStyle]="{'text-decoration': item.done ? 'line-through' : '' }">{{item.todo}}</li>
+		</ul>
+	</div>
+
+	<div *ngIf="project.education">
+		<div class="school-wrapper" *ngFor="let item of project.education"> 
+			<div class="bold">{{item.school}}</div>
+			<div class="bold">GPA {{item.gpa}}</div>
+			<div class="smaller section"  [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.location}}</div>
+			<div class="smaller section" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.degree}}</div>
+			
+			<div class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.awards}}</div>
+			<div class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.relevant}}</div>
+		</div>
+	</div>
+	<p *ngIf="project.link">Link to {{project.name}} <a href="{{project.link}}" target="_blank">here</a> </p>
+	
+</div>

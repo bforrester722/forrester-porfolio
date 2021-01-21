@@ -1,0 +1,40 @@
+
+<div *ngIf="project?.length || project.name " 
+     #box 
+     class="resizable-draggable"
+     [style.width.px]="width" 
+     [style.height.px]="height" 
+     [style.transform]="'translate3d('+ left + 'px,' + top + 'px,' + '0px)'"
+     [ngStyle]="{'z-index':project.lastClicked ? 1 : 0 }">
+	<div class="toolbar">
+	 <div class="drag" [class.active]="status === 1 || status === 2"
+       (touchstart)="setTouchStatus($event, 2)"
+       (mousedown)="setStatus($event, 2)"
+       (window:mouseup)="setStatus($event, 0)">
+		<div class="title" *ngIf="project.viewer === 'pic'">{{project.name}} - Pic-U-View</div> 
+		<div class="title" *ngIf="project.viewer === 'doc'">{{project.name}} - Doc-U-View</div> 
+    <div class="title" *ngIf="project.items?.length">{{project.name}} - Folder-U-View</div> 
+	</div>
+		<div class="icons-wrapper">
+			<mat-icon (click)="minimizeClicked()">minimize</mat-icon>
+			<!-- <mat-icon (click)="maximizeClicked()" [ngStyle]="{'display': screenWidth < 500  ? 'none' : ''}">open_in_new</mat-icon> -->
+        <mat-icon (click)="maximizeClicked()">open_in_new</mat-icon>
+			<mat-icon (click)="closeClicked()">close</mat-icon>
+		</div>
+	</div>
+
+	<div class="content" [ngStyle]="{'overflow':project.type || project.items?.length  || project.viewer === 'doc'? 'scroll' : '' }">  
+    <app-folder-items *ngIf="project.items?.length" [style.width.px]="width"  [files]="project.items"></app-folder-items> 
+ 	  <app-pic-view *ngIf="project.viewer === 'pic'"
+                  class="viewer"
+ 	 								[project]="project">
+    </app-pic-view>
+    <app-doc-view *ngIf="project.viewer === 'doc'"
+                  [project]="project"
+				          [width]="width">
+  	</app-doc-view>
+  </div>
+  
+  <div class="resize-action" (mousedown)="setStatus($event, 1)" (touchstart)="setTouchStatus($event, 1)" (mouseup)="addTransition()"></div>
+
+</div>

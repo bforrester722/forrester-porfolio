@@ -1,0 +1,66 @@
+ [
+ 	{
+ 		"index": 0,
+ 		"name": "portfolio",
+ 		"viewer": "folder",
+ 		"icon": "folder_open"
+ 	}, 
+ 	{
+		"index": 1,
+ 		"name": "animations",
+ 		"viewer": "folder",
+ 		"icon": "live_tv"
+ 	}, 
+ 	{
+		"index": 2,
+ 		"name": "icons",
+ 		"viewer": "folder",
+ 		"icon": "adb"
+ 	}, 
+ 	{
+		"index": 3,
+ 		"name": "resume",
+ 		"viewer": "doc",
+ 		"src": "./assets/imgs/profile.png",
+ 		"paragraph": "Adaptable recent college graduate with a Bachelor of Science (B.S.) in Computer Information Technology (4.0) with 2+ years of work experience. Aiming to leverage academic experience and a proven knowledge of real time data, web design, and programming to successfully fill the web developer role at your company. Frequently praised as diligent by my peers, I can be relied upon to help your company achieve its goals",
+ 		"education": [
+ 			{
+ 				"awards": ["Summa Cum Laude", "Valedictorian Candidate"],
+ 				"degree": "Bachelor of Science (B.S.) Computer Information Technology (May 2019)",
+ 				"gpa": 4.0,
+ 				"location": "Kerrville, Tx",
+ 				"school": "Schreiner University"
+ 			},
+ 			{
+ 				"degree": "Associate in Science (A.S.) Programming Certificate (Undergraduate) (June 2016)",
+ 				"gpa": 4.0,
+ 				"location": "Online",
+ 				"relevant": ["Programming in Html5 With JavaScript", "Windows Application Development Using Html5 And JavaScript"],
+ 				"school": "University of Phoenix"
+ 			}
+ 		],
+ 		"icon": "insert_drive_file"
+ 	}, 
+ 	{
+ 		"todos" : [
+ 			{"todo":	"app.component: make last clicked based on previous windows index instead of Boolean", "done": false},
+			{"todo":	"desktop.icon: make my own desktop icons", "done": false},
+			{"todo":	"taskbar.component: make taskbar on top of everything", "done": true},
+			{"todo":	"window.component: performance on phone is an issue, for best UX should disable moving and changing size of window", "done": false},
+			{"todo":	"window.component: moving and resizing in box boundries not ideal", "done": false},
+			{"todo":	"Fix issue with time sync bogging down website (disabled for now)", "done": true},
+			{"todo":	"Grid resume for better large screen viewing", "done": false},
+			{"todo":	"Finish resume wording", "done": false},
+			{"todo":	"Work on wording for portfolio pages and add more", "done": false},
+			{"todo":	"Make transition between switching icons/animation", "done": false},
+			{"todo":	"Make favicon" , "done": true}
+
+		],
+		"index": 4,
+ 		"name": "readme",
+ 		"viewer": "doc",
+ 		"paragraph": "Welcome to my portfolio website, and my first project made with Angular. It also uses sass instead of css, because if you are going to learn something might as well add more to it. Most of my projects were made with Polymer 3, and one with React. This project looks basic right now, but all functionality is there. In between applying for jobs, I will be prettifying it.",
+ 		"icon": "insert_drive_file"
+ 	}
+
+ ]
