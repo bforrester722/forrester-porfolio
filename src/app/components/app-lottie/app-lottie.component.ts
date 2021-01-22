@@ -10,6 +10,8 @@ import { AnimationOptions } from 'ngx-lottie';
 
 export class AppLottieComponent {
 
+  @Input() paused: any;
+
   private _animation: any = [];
 
   @Input() get animation(): any {
@@ -23,14 +25,20 @@ export class AppLottieComponent {
       this.options = {
         ...this.options, // In case you have other properties that you want to copy
         path: `../../assets/animations/${this.animation}.json`,
+
       };
       return;
     }
   }
 
-  // path to animations
   options: AnimationOptions = {
-    path: `../assets/${this.animation}.json`,
   };
 
+ animationCreated(animationItem: AnimationItem): void {
+    if (this.paused) {
+      animationItem.autoplay = false;
+      animationItem.loop = false;
+      animationItem.goToAndStop(10, true) 
+    }
+  }
 }
