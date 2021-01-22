@@ -6,7 +6,7 @@
 			 (click)="folderIconClicked(item)">
 		<div class="img-wrapper">
 			<img *ngIf="item.src" src="{{item.src}}" draggable="false">
-			<app-lottie *ngIf="!item.src" [animation]="item.name" draggable="false"></app-lottie>
+			<app-lottie *ngIf="!item.src" [animation]="item.name" [paused]="paused" draggable="false"></app-lottie>
 		</div>
 		<div class="name">{{item.name }}</div>
 	</div>
