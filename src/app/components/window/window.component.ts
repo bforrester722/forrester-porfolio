@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, AfterViewInit, HostListener, Renderer2  } from '@angular/core';
 import { wait } from '../../helpers/helper';
 
 const enum Status {
@@ -31,7 +31,8 @@ export class WindowComponent implements AfterViewInit {
   public status: Status = Status.OFF;
   private mouseClick: any;
   @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  mouseMoveListener: any;
+  touchMoveListener: any;
   // updates project to change backgroundColor if needed
   private _project: any = [];
 
@@ -55,6 +56,8 @@ export class WindowComponent implements AfterViewInit {
      this.box.nativeElement.style.backgroundColor = bg ? bg : 'white';
   }
   
+  constructor(private renderer: Renderer2) {}
+
   ngAfterViewInit(){
     this.loadBox();
     this.loadContainer();
@@ -79,12 +82,26 @@ export class WindowComponent implements AfterViewInit {
 
   // sets status based mouse on moving or resizing window
   setStatus(event: MouseEvent, status: number){
-   	this.box.nativeElement.style.transition = 'all .25s';
-    if(status === 1) event.stopPropagation();
-    else if(status === 2) {
-    	this.mouseClick = { x: event.clientX, y: event.clientY, left: this.left, top: this.top };
+     this.box.nativeElement.style.transition = 'all .25s';
+     if (status) {
+      this.mouseClick = { x: event.clientX, y: event.clientY, left: this.left, top: this.top };
+      // adds listener to track mouse for move or resize
+      this.mouseMoveListener = this.renderer.listen('document', 'mousemove', e => {
+        this.mouse = { x: e.clientX, y: e.clientY };
+        if (this.status === 1) {
+          this.resize();
+          return
+        }
+        this.move();
+      });
     }
     else {
+      if (this.mouseMoveListener) {
+        this.mouseMoveListener();
+      }
+      if (this.touchMoveListener) {
+        this.touchMoveListener();
+      }
       this.loadBox();
     }
     this.status = status;
@@ -93,48 +110,42 @@ export class WindowComponent implements AfterViewInit {
   // sets status based touch on moving or resizing window
   setTouchStatus(event: TouchEvent, status: number){
    	this.box.nativeElement.style.transition = 'all .25s';
-    if(status === 1) event.stopPropagation();
-    else if(status === 2) {
-    	if(event.targetTouches) {
-    		const touch = event.targetTouches[0]
-  	   	this.mouseClick = { x: touch.clientX, y: touch.clientY, left: this.left, top: this.top };
-    		this.status = status;
-    	}
+    if(status) {
+      const touch = event.targetTouches[0]
+      this.mouseClick = { x: touch.clientX, y: touch.clientY, left: this.left, top: this.top };
+      this.touchMoveListener = this.renderer.listen('document', 'touchmove', e => {
+        const touch = e.targetTouches[0];
+        this.mouse = { x: touch.clientX, y: touch.clientY };
+        if (this.status === 1) {
+          this.resize();
+          return
+        }
+        this.move();
+      });
+    } 
+    else {
+       if (this.touchMoveListener) {
+        this.touchMoveListener();
+      }
+ 
+      this.loadBox();
     }
-    else this.loadBox();
     this.status = status;
   }
+
 
   // re-adds transition on mouse up
   addTransition(){
  		this.box.nativeElement.style.transition = 'all .25s';
   }
 
-  // for moving with mouse
-  @HostListener('window:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent){
-    if (this.status === 0 ) { return}
-    this.mouse = { x: event.clientX, y: event.clientY };
-    if(this.status === Status.RESIZE) this.resize();
-    else if(this.status === Status.MOVE) this.move();
-  }
-
-	// for moving with touch
-  @HostListener('window:touchmove', ['$event'])
-  onTouchMove(event: TouchEvent){
-  	const touch = event.targetTouches[0]
-    this.mouse = { x: touch.clientX, y: touch.clientY };
-    if(this.status === Status.RESIZE) this.resize();
-    else if(this.status === Status.MOVE) this.move();
-  }
-
   // resizes window
   private resize(){
   	this.box.nativeElement.style.transition = 'all 0s';
-    if(this.resizeCondMeet()){
+    // if(this.resizeCondMeet()){
       this.width = Number(this.mouse.x > this.boxPosition.left) ? this.mouse.x - this.boxPosition.left : 0;
       this.height = Number(this.mouse.y > this.boxPosition.top) ? this.mouse.y - this.boxPosition.top : 0;
-    }
+    // }
   }
 
   // contains resize of window to screen
@@ -145,11 +156,12 @@ export class WindowComponent implements AfterViewInit {
 
   // moves window
   private move(){
+
   	this.box.nativeElement.style.transition = 'all 0s';
-    if(this.moveCondMeet()){
+    // if(this.moveCondMeet()){
       this.left = this.mouseClick.left + (this.mouse.x - this.mouseClick.x);
       this.top = this.mouseClick.top + (this.mouse.y - this.mouseClick.y);
-    }
+    // }
   }
 
   // contains movement of window to screen
@@ -192,7 +204,7 @@ export class WindowComponent implements AfterViewInit {
         return;
       }
       // for phone size opens at full width and height so no cached
-      this.updateSize(this.width / 2, this.height / 2, this.left, this.top);
+      this.updateSize(this.width / 2, this.height / 2, 32, 16);
       return;
 		}
     // otherwise make window max width and height
@@ -201,6 +213,7 @@ export class WindowComponent implements AfterViewInit {
 
   // sets dimensions and postion of window
   updateSize(width: number, height: number, left: number, top: number) {
+    const {innerHeight, innerWidth} = window;
     window.requestAnimationFrame(() => {
       this.width  = width;
       this.height = height;
