@@ -7,10 +7,11 @@
      [style.transform]="'translate3d('+ left + 'px,' + top + 'px,' + '0px)'"
      [ngStyle]="{'z-index':project.lastClicked ? 1 : 0 }">
 	<div class="toolbar">
-	 <div class="drag" [class.active]="status === 1 || status === 2"
+	 <div  #drag class="drag" [class.active]="status === 1 || status === 2"
        (touchstart)="setTouchStatus($event, 2)"
        (mousedown)="setStatus($event, 2)"
-       (window:mouseup)="setStatus($event, 0)">
+       (window:mouseup)="setStatus($event, 0)"
+       (window:touchend)="setTouchStatus($event, 0)">
 		<div class="title" *ngIf="project.viewer === 'pic'">{{project.name}} - Pic-U-View</div> 
 		<div class="title" *ngIf="project.viewer === 'doc'">{{project.name}} - Doc-U-View</div> 
     <div class="title" *ngIf="project.items?.length">{{project.name}} - Folder-U-View</div> 
@@ -35,6 +36,10 @@
   	</app-doc-view>
   </div>
   
-  <div class="resize-action" (mousedown)="setStatus($event, 1)" (touchstart)="setTouchStatus($event, 1)" (mouseup)="addTransition()"></div>
+  <div class="resize-action" 
+       (mousedown)="setStatus($event, 1)" 
+       (touchstart)="setTouchStatus($event, 1)" 
+       (mouseup)="addTransition()">
+  </div>
 
 </div>
