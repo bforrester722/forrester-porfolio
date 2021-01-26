@@ -6,7 +6,7 @@ import { FirestoreService } from './core/firestore.service';
 import { ProjectService } from './core/project.service';
 import { Subscription } from 'rxjs';
 // interfaces
-import { IIcons } from './shared/interfaces';
+import { IAnimation, IIcons, IPortfolio, IOpenFile } from './shared/interfaces';
 import { wait } from './helpers/helper';
 
 @Component({
@@ -19,16 +19,18 @@ export class AppComponent implements OnInit, OnDestroy{
 
   @ViewChildren(WindowComponent) private childrenFolder!: QueryList<WindowComponent>;
 
-	icons: IIcons[] = [];
-	animations: any;
-	openFiles: any[] = [];
-  messages: any[] = [];
-  subscription: Subscription;
-  openSubscription: Subscription;
+  // varibles
+  screenHeight: number = 0;
+  // subscriptions
+  subscription:           Subscription;
+  openSubscription:       Subscription;
   animationsSubscription: Subscription;
-  screenHeight: any;
-  portfolio: any;
-
+  // interfaces
+  icons:        IIcons[] = [];
+  animations:   IAnimation[] = [];
+  openFiles:    Array<IOpenFile> = [];
+  portfolio:    IPortfolio[] = [];
+ 
   constructor(private firestoreService: FirestoreService, 
               private projectService: ProjectService,
               private dataService: DataService) {
@@ -91,7 +93,8 @@ export class AppComponent implements OnInit, OnDestroy{
     const type  = project.src ? this.icons : this.animations;
     let newIndex = index + 1 > type.length ? 0 : index;
     newIndex = newIndex === -1 ? type.length - 1 : newIndex;
-    this.openFiles.splice(openIndex, 1, {...type[newIndex], lastClicked: true, openIndex, width, height, top, left});
+    // TODO:  fix doesn't smell right
+    this.openFiles.splice(openIndex, 1, {viewer: 'na', ...type[newIndex], lastClicked: true, openIndex, width, height, top, left});
 
   }
 
@@ -166,12 +169,12 @@ export class AppComponent implements OnInit, OnDestroy{
         return [...this.icons]
 
       }
-  
       return [...this.portfolio];
-    
     }
     const items = type();
-    const builtItem = {items, viewer: item.viewer, name: name, openIndex: this.openFiles.length, ...this.getRandom()};
+    const {height, width, top, left} = this.getRandom();
+    // TODO:  fix doesn't smell right
+    const builtItem = {lastClicked: true, items, viewer: item.viewer, name: name, openIndex: this.openFiles.length, height, width, top, left};
     this.openFiles.push(builtItem);
     this.setLastClicked(builtItem);
   }

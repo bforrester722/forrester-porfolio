@@ -10,18 +10,19 @@ import { AnimationOptions } from 'ngx-lottie';
 
 export class AppLottieComponent {
 
-  @Input() paused: any;
+  @Input() paused: boolean = false;
 
-  private _animation: any = [];
+  private _animation: string = '';
 
-  @Input() get animation(): any {
+  @Input() get animation(): string {
     return this._animation;
   }
 
   // sets animation selected from start menu
-  set animation(value: any ) {
+  set animation(value: string ) {
     if (value) {
       this._animation = value;
+   
       this.options = {
         ...this.options, // In case you have other properties that you want to copy
         path: `../../assets/animations/${this.animation}.json`,

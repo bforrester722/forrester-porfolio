@@ -10,7 +10,7 @@ export class FolderItemsComponent implements OnInit{
 
   @Input() files: any;
   @Output() iconClicked: EventEmitter<object> = new EventEmitter<object>();
-  paused: Boolean = false;
+  paused: boolean = false;
 
   constructor(private projectService: ProjectService) { }
 

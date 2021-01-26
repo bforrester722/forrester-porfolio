@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter, HostListener } from '@angular/core';
 import { wait }        from '../../helpers/helper';
 import { DataService } from '../../core/data.service';
-import { IStartMenu } from  '../../shared/interfaces';
+import { IStartMenu, ISecondMenu, IIcons, IAnimation } from  '../../shared/interfaces';
 
 @Component({
   selector: 'app-taskbar',
@@ -12,19 +12,19 @@ import { IStartMenu } from  '../../shared/interfaces';
 
 export class TaskbarComponent implements OnInit {
 
-  @Input() icons: any;
-  @Input() animations: any;
+  @Input() icons: IIcons[] = [];
+  @Input() animations: IAnimation[] = [];
   @Input() openFiles: any;
   @Input() portfolio: any;
   @Output() selected: EventEmitter<object> = new EventEmitter<object>();
   @Output() maximize: EventEmitter<string> = new EventEmitter<string>();
-  appTime = "";
-  appDate=  "";
-  cached = "";
-  openStart = false;
-  openSecond = false;
-  secondMenu: any;
-  startMenuItems : IStartMenu[] = [];
+  appTime: string = '';
+  appDate: string = '';
+  cached: string =  '';
+  openStart: boolean = false;
+  openSecond: boolean = false;
+  secondMenu: ISecondMenu[] = [];
+  startMenuItems: IStartMenu[] = [];
 
   
    // closes start menus if clicked outside of them
