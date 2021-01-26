@@ -15,10 +15,10 @@ const enum Status {
 })
 
 export class WindowComponent implements AfterViewInit {
-  @Input() width: any;
-  @Input() height: any;
-  @Input() left: any;
-  @Input() top: any;
+  @Input() width: number = 0;
+  @Input() height: number = 0;
+  @Input() left: number = 0;
+  @Input() top: number = 0;
   @ViewChild('box') box: any;
   private boxPosition: any;
   private containerPos: any;

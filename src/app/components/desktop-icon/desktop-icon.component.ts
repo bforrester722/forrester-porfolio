@@ -10,7 +10,7 @@ import { IDesktopIcon } from '../../shared/interfaces';
 
 export class DesktopIconComponent implements OnInit {
 
-  @Input() icons: IDesktopIcon[] = [];
+  icons: IDesktopIcon[] = [];
   @Output() iconClicked: EventEmitter<object> = new EventEmitter<object>();
   
 

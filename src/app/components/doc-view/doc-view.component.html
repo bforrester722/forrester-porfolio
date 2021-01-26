@@ -16,15 +16,34 @@
 		</ul>
 	</div>
 
-	<div *ngIf="project.education">
-		<div class="school-wrapper" *ngFor="let item of project.education"> 
-			<div class="bold">{{item.school}}</div>
-			<div class="bold">GPA {{item.gpa}}</div>
-			<div class="smaller section"  [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.location}}</div>
-			<div class="smaller section" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.degree}}</div>
-			
-			<div class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.awards}}</div>
-			<div class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.relevant}}</div>
+	<div *ngIf="project.education" >
+		<h1>Education</h1>
+		<div class="school-grid">
+			<div class="school-wrapper" *ngFor="let item of project.education"> 
+				<div class="bold">{{item.school}}</div>
+				<div class="bold">GPA {{item.gpa}}</div>
+				<div class="smaller section"  [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.location}}</div>
+				<div class="smaller section" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.degree}}</div>
+				
+				<div *ngIf="item.awards">
+					Awards
+					<div class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.awards}}</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="project.experience" >
+		<h1>experience</h1>
+		<div class="school-grid">
+			<div class="school-wrapper" *ngFor="let item of project.experience"> 
+				<div class="bold">{{item.title}}</div>
+				<div class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }" >{{item.business}}</div>
+				<ul>
+					<li *ngFor="let bullet of item.bullets" class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{bullet}} </li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<p *ngIf="project.link">Link to {{project.name}} <a href="{{project.link}}" target="_blank">here</a> </p>
