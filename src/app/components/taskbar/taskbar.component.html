@@ -1,39 +1,50 @@
-
-<div class="menu second-menu dont-close" 
-		 [ngClass]="openSecond ? 'open-second' : ''">
-  <div *ngFor="let menuItem of secondMenu"
-  		 class="second-menu-item dont-close"
-  		 (click)="secondMenuItemClicked(menuItem)">
-  	{{ menuItem.name }}
+<div
+  class="menu second-menu dont-close"
+  [ngClass]="openSecond ? 'open-second' : ''"
+>
+  <div
+    *ngFor="let menuItem of secondMenu"
+    class="second-menu-item dont-close"
+    (click)="secondMenuItemClicked(menuItem)"
+  >
+    {{ menuItem.name }}
   </div>
 </div>
 
-<div class="menu start-menu dont-close" [ngClass]="openStart ? 'open-menu' : ''">
-  	<div *ngFor="let obj of startMenuItems" 
-  			 class="menu-item dont-close" 
-				 (click)="startMenuItemClicked(obj.name, obj.option)">
-			<div class="menu-icon-name-wrapper dont-close" [ngClass]="{'disable': obj.option == 'disable'}">
-				<mat-icon *ngIf="obj.icon">{{ obj.icon }}</mat-icon>
-			 	<span class="menu-name dont-close"> {{ obj.name | titlecase}}</span>
-			</div>
-			<mat-icon *ngIf="obj.option === 'more'">play_arrow</mat-icon>
-		</div>
+<div
+  class="menu start-menu dont-close"
+  [ngClass]="openStart ? 'open-menu' : ''"
+>
+  <div
+    *ngFor="let obj of startMenuItems"
+    class="menu-item dont-close"
+    (click)="startMenuItemClicked(obj.name, obj.option)"
+  >
+    <div
+      class="menu-icon-name-wrapper dont-close"
+      [ngClass]="{ disable: obj.option == 'disable' }"
+    >
+      <mat-icon *ngIf="obj['icon']">{{ obj["icon"] }}</mat-icon>
+      <span class="menu-name dont-close"> {{ obj.name | titlecase }}</span>
+    </div>
+    <mat-icon *ngIf="obj.option === 'more'">play_arrow</mat-icon>
+  </div>
 </div>
 
 <div class="taskbar">
-	<div class="start-btn dont-close" (click)="startClicked()">Start</div>	
-	<div *ngFor="let item of openFiles" > 
-		<div *ngIf="item.name"
-	  		 [ngStyle]="styleTab(item)"
-				 class="tab"
-				 (click)="tabClicked(item)">
-			{{item.name}}
-		</div>
-	</div>
-	<div class="date">
-			<div>{{ appTime }}</div>
-			<div>{{ appDate }}</div>
-	</div>
+  <div class="start-btn dont-close" (click)="startClicked()">Start</div>
+  <div *ngFor="let item of openFiles">
+    <div
+      *ngIf="item.name"
+      [ngStyle]="styleTab(item)"
+      class="tab"
+      (click)="tabClicked(item)"
+    >
+      {{ item.name }}
+    </div>
+  </div>
+  <div class="date">
+    <div>{{ appTime }}</div>
+    <div>{{ appDate }}</div>
+  </div>
 </div>
-
-
