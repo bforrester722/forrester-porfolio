@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { DataService } from 'app/core/data.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TaskbarComponent } from './taskbar.component';
 
 describe('TaskbarComponent', () => {
@@ -8,9 +9,9 @@ describe('TaskbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TaskbarComponent ]
-    })
-    .compileComponents();
+      declarations: [TaskbarComponent],
+      providers: [DataService, HttpClient, HttpHandler],
+    }).compileComponents();
   });
 
   beforeEach(() => {
