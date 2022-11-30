@@ -4,7 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { MatIconModule } from '@angular/material/icon';
+
 import { NgModule } from '@angular/core';
+import { environment } from '../environments/environment';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire/compat';
@@ -28,15 +30,6 @@ export function playerFactory() {
   return player;
 }
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyDUSBdLDAmaoEMnZbKFX4hmhjEZteHxXA0',
-  authDomain: 'forrester-angular.firebaseapp.com',
-  projectId: 'forrester-angular',
-  storageBucket: 'forrester-angular.appspot.com',
-  messagingSenderId: '578715683983',
-  appId: '1:578715683983:web:9aa252a4eee3aade9374fa',
-};
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +42,7 @@ const firebaseConfig = {
     WindowComponent,
   ],
   imports: [
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // firestore
     AppRoutingModule,
     BrowserAnimationsModule,

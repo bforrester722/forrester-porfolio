@@ -1,31 +1,34 @@
-
-<div class="content-wrapper" [ngStyle]="{'height': screenHeight + 'px'}" (window:resize)="onResize($event)"> 
+<div
+  class="content-wrapper"
+  [ngStyle]="{ height: screenHeight + 'px' }"
+  (window:resize)="onResize($event)"
+>
   <div class="content">
-    <app-desktop-icon 
-                      (iconClicked)="openDesktopFolder($event)">
+    <app-desktop-icon (iconClicked)="openDesktopFolder($event)">
     </app-desktop-icon>
-    
-    <app-window *ngFor="let item of openFiles"
-                [project]="item"
-                [width]="item.width" 
-                [height]="item.height" 
-                [left]="item.left" 
-                [top]="item.top"
-                (closed)="windowClosed($event)"
-                (click)="setLastClicked(item)">
+
+    <app-window
+      *ngFor="let item of openFiles"
+      [project]="item"
+      [width]="item.width"
+      [height]="item.height"
+      [left]="item.left"
+      [top]="item.top"
+      (closed)="windowClosed($event)"
+      (click)="setLastClicked(item)"
+    >
     </app-window>
   </div>
-   
-  <app-taskbar [animations]="animations" 
-               [icons]="icons" 
-               [openFiles]="openFiles"
-               [portfolio]="portfolio"
-               (selected)="openFile($event)"
-               (maximize)="maximizeWindow($event)">
+
+  <app-taskbar
+    [animations]="animations"
+    [icons]="icons"
+    [openFiles]="openFiles"
+    [portfolio]="portfolio"
+    (selected)="openFile($event)"
+    (maximize)="maximizeWindow($event)"
+  >
   </app-taskbar>
-
 </div>
-
-
 
 <router-outlet></router-outlet>

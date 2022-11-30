@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { DesktopIconComponent } from './desktop-icon.component';
+import { DataService } from '../../core';
 
 describe('DesktopIconComponent', () => {
   let component: DesktopIconComponent;
@@ -8,9 +9,9 @@ describe('DesktopIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DesktopIconComponent ]
-    })
-    .compileComponents();
+      declarations: [DesktopIconComponent],
+      providers: [DataService, HttpClient, HttpHandler],
+    }).compileComponents();
   });
 
   beforeEach(() => {
