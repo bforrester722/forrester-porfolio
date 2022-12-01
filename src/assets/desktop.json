@@ -110,7 +110,7 @@
 
     "name": "readme",
     "viewer": "doc",
-    "paragraph": "Hi welcome to my portfolio website, and my first project made with Angular. It also uses sass instead of css, because if you are going to learn something might as well add more to it. Most of my projects were made with Polymer 3, and one with React. This project looks basic right now, but all functionality is there. In between applying for jobs, I will be prettifying it.",
+    "paragraph": "Hello welcome to my portfolio website, and my first project made with Angular. It also uses sass instead of css, because if you are going to learn something might as well add more to it. Most of my projects were made with Polymer 3, and one with React. This project looks basic right now, but all functionality is there. In between applying for jobs, I will be prettifying it.",
     "icon": "insert_drive_file"
   }
 ]
