@@ -110,16 +110,15 @@ export class TaskbarComponent implements OnInit {
   }
 
   // Closes previous second menu if open then open second Menu
-  async startMenuItemClicked(name: string, option: string) {
+  async startMenuItemClicked(name: string) {
     if (this.cached !== name) {
       this.openSecond = false;
       await wait(250);
     }
     this.cached = name;
-    if (option === 'more') {
-      this.openSecond = !this.openSecond;
-      this.secondMenu = this.getSecondMenuItems(name);
-    }
+
+    this.openSecond = !this.openSecond;
+    this.secondMenu = this.getSecondMenuItems(name);
   }
 
   // used to maximize window when tab clicked

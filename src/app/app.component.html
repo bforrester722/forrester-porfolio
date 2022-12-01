@@ -10,10 +10,6 @@
     <app-window
       *ngFor="let item of openFiles"
       [project]="item"
-      [width]="item.width"
-      [height]="item.height"
-      [left]="item.left"
-      [top]="item.top"
       (closed)="windowClosed($event)"
       (click)="setLastClicked(item)"
     >

@@ -96,23 +96,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   // ran when left or right clicked from pic-view
-  projectChanged(project: any) {
-    const { width, height, top, left } =
-      this.childrenFolder.toArray()[project.openIndex];
-    const { index, openIndex } = project;
+  projectChanged(project: IOpenFile) {
+    const { bg, ...rest } = project;
+    const { index, openIndex } = rest;
     const type = project.src ? this.icons : this.animations;
-    let newIndex = index + 1 > type.length ? 0 : index;
-    newIndex = newIndex === -1 ? type.length - 1 : newIndex;
-    // TODO:  fix doesn't smell right
+    // get index of left or right
+    const newIndex =
+      index + 1 > type.length ? 0 : index === -1 ? type.length - 1 : index;
+
     this.openFiles.splice(openIndex, 1, {
-      viewer: 'na',
+      ...rest,
       ...type[newIndex],
       lastClicked: true,
-      openIndex,
-      width,
-      height,
-      top,
-      left,
     });
   }
 
@@ -143,9 +138,12 @@ export class AppComponent implements OnInit, OnDestroy {
     if (!data) {
       return;
     }
-    const { length } = this.openFiles;
-    data.openIndex = length;
-    const updated = { ...data, ...this.getRandom() };
+
+    const updated = {
+      ...data,
+      ...this.getRandom(),
+      openIndex: this.openFiles.length,
+    };
     this.openFiles.push(updated);
     this.setLastClicked(updated);
   }
@@ -173,36 +171,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // opens folder and passes in data
   openDesktopFolder(item: any) {
-    const { name } = item;
-    const newItem = { ...item, ...this.getRandom() };
-    if (newItem.viewer === 'doc') {
-      newItem.openIndex = this.openFiles.length;
-      this.openFiles.push(newItem);
-      this.setLastClicked(newItem);
-      return;
-    }
-    const type = () => {
-      if (name === 'animations') {
-        return [...this.animations];
-      }
-      if (name === 'icons') {
-        return [...this.icons];
-      }
-      return [...this.portfolio];
-    };
-    const items = type();
-    const { height, width, top, left } = this.getRandom();
-    // TODO:  fix doesn't smell right
+    const items = (this as any)[item.name];
     const builtItem = {
       lastClicked: true,
       items,
-      viewer: item.viewer,
-      name: name,
       openIndex: this.openFiles.length,
-      height,
-      width,
-      top,
-      left,
+      ...item,
+      ...this.getRandom(),
     };
     this.openFiles.push(builtItem);
     this.setLastClicked(builtItem);
