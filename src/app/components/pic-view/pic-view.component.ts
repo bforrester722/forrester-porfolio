@@ -12,16 +12,9 @@ export class PicViewComponent {
   constructor(private projectService: ProjectService) {}
 
   // emits up to app component to change selected project
-  arrowClicked(operator: string) {
+  arrowClicked(operator: number) {
     const { index } = this.project;
-    console.log(this.project);
-    const getIndex = () => {
-      if (operator === '+') {
-        return index + 1;
-      }
-      return index - 1;
-    };
-    const payload = { ...this.project, index: getIndex() };
+    const payload = { ...this.project, index: index + operator };
     this.projectService.updateProject(payload);
   }
 }

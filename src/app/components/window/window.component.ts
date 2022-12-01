@@ -1,13 +1,10 @@
 import {
   Component,
-  OnInit,
   Input,
   ViewChild,
-  ElementRef,
   Output,
   EventEmitter,
   AfterViewInit,
-  HostListener,
   Renderer2,
 } from '@angular/core';
 import { wait } from '../../helpers/helper';
@@ -24,10 +21,6 @@ const enum Status {
   styleUrls: ['./window.component.sass'],
 })
 export class WindowComponent implements AfterViewInit {
-  @Input() width: number = 0;
-  @Input() height: number = 0;
-  @Input() left: number = 0;
-  @Input() top: number = 0;
   @ViewChild('box') box: any;
   private boxPosition: any;
   private containerPos: any;
@@ -88,10 +81,10 @@ export class WindowComponent implements AfterViewInit {
     if (!this.box) {
       return;
     }
-    const left = this.boxPosition.left - this.left - 128;
-    const top = this.boxPosition.top - this.top - 32;
+    const left = this.boxPosition.left - this.project.left - 128;
+    const top = this.boxPosition.top - this.project.top - 32;
     const right = left + window.innerWidth + 256;
-    const bottom = top + window.innerHeight + this.height - 64;
+    const bottom = top + window.innerHeight + this.project.height - 64;
     this.containerPos = { left, top, right, bottom };
   }
 
@@ -102,8 +95,8 @@ export class WindowComponent implements AfterViewInit {
       this.mouseClick = {
         x: event.clientX,
         y: event.clientY,
-        left: this.left,
-        top: this.top,
+        left: this.project.left,
+        top: this.project.top,
       };
       // adds listener to track mouse for move or resize
       this.mouseMoveListener = this.renderer.listen(
@@ -138,8 +131,8 @@ export class WindowComponent implements AfterViewInit {
       this.mouseClick = {
         x: touch.clientX,
         y: touch.clientY,
-        left: this.left,
-        top: this.top,
+        left: this.project.left,
+        top: this.project.top,
       };
       this.touchMoveListener = this.renderer.listen(
         'document',
@@ -172,10 +165,10 @@ export class WindowComponent implements AfterViewInit {
   private resize() {
     this.box.nativeElement.style.transition = 'all 0s';
     // if(this.resizeCondMeet()){
-    this.width = Number(this.mouse.x > this.boxPosition.left)
+    this.project.width = Number(this.mouse.x > this.boxPosition.left)
       ? this.mouse.x - this.boxPosition.left
       : 0;
-    this.height = Number(this.mouse.y > this.boxPosition.top)
+    this.project.height = Number(this.mouse.y > this.boxPosition.top)
       ? this.mouse.y - this.boxPosition.top
       : 0;
     // }
@@ -194,8 +187,9 @@ export class WindowComponent implements AfterViewInit {
   private move() {
     this.box.nativeElement.style.transition = 'all 0s';
     // if(this.moveCondMeet()){
-    this.left = this.mouseClick.left + (this.mouse.x - this.mouseClick.x);
-    this.top = this.mouseClick.top + (this.mouse.y - this.mouseClick.y);
+    this.project.left =
+      this.mouseClick.left + (this.mouse.x - this.mouseClick.x);
+    this.project.top = this.mouseClick.top + (this.mouse.y - this.mouseClick.y);
     // }
   }
 
@@ -203,9 +197,9 @@ export class WindowComponent implements AfterViewInit {
   // TODO: choppy find a better way to do this
   private moveCondMeet() {
     const offsetLeft = this.mouseClick.x - this.boxPosition.left;
-    const offsetRight = this.width - offsetLeft;
+    const offsetRight = this.project.width - offsetLeft;
     const offsetTop = this.mouseClick.y - this.boxPosition.top;
-    const offsetBottom = this.height - offsetTop;
+    const offsetBottom = this.project.height - offsetTop;
     return (
       this.mouse.x > this.containerPos.left + offsetLeft &&
       this.mouse.x < this.containerPos.right - offsetRight &&
@@ -225,14 +219,20 @@ export class WindowComponent implements AfterViewInit {
   maximizeClicked() {
     const { innerHeight, innerWidth } = window;
     // if not maximized cache dimensions for when restored
-    if (this.width !== innerWidth && this.height !== innerHeight) {
-      this.cachedWidth = this.width;
-      this.cachedHeight = this.height;
-      this.cachedLeft = this.left;
-      this.cachedTop = this.top;
+    if (
+      this.project.width !== innerWidth &&
+      this.project.height !== innerHeight
+    ) {
+      this.cachedWidth = this.project.width;
+      this.cachedHeight = this.project.height;
+      this.cachedLeft = this.project.left;
+      this.cachedTop = this.project.top;
     }
     // if already full screen restore to cached size and position
-    if (this.width === innerWidth && this.height === innerHeight - 40) {
+    if (
+      this.project.width === innerWidth &&
+      this.project.height === innerHeight - 40
+    ) {
       if (this.cachedWidth) {
         this.updateSize(
           this.cachedWidth,
@@ -243,7 +243,7 @@ export class WindowComponent implements AfterViewInit {
         return;
       }
       // for phone size opens at full width and height so no cached
-      this.updateSize(this.width / 2, this.height / 2, 32, 16);
+      this.updateSize(this.project.width / 2, this.project.height / 2, 32, 16);
       return;
     }
     // otherwise make window max width and height
@@ -254,10 +254,10 @@ export class WindowComponent implements AfterViewInit {
   updateSize(width: number, height: number, left: number, top: number) {
     const { innerHeight, innerWidth } = window;
     window.requestAnimationFrame(() => {
-      this.width = width;
-      this.height = height;
-      this.left = left;
-      this.top = top;
+      this.project.width = width;
+      this.project.height = height;
+      this.project.left = left;
+      this.project.top = top;
     });
   }
 

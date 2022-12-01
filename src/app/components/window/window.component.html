@@ -2,9 +2,11 @@
   *ngIf="project?.length || project.name"
   #box
   class="resizable-draggable"
-  [style.width.px]="width"
-  [style.height.px]="height"
-  [style.transform]="'translate3d(' + left + 'px,' + top + 'px,' + '0px)'"
+  [style.width.px]="project.width"
+  [style.height.px]="project.height"
+  [style.transform]="
+    'translate3d(' + project.left + 'px,' + project.top + 'px,' + '0px)'
+  "
   [ngStyle]="{ 'z-index': project.lastClicked ? 1 : 0 }"
 >
   <div class="toolbar">
@@ -46,7 +48,7 @@
   >
     <app-folder-items
       *ngIf="project.items?.length"
-      [style.width.px]="width"
+      [style.width.px]="project.width"
       [files]="project.items"
     ></app-folder-items>
     <app-pic-view
@@ -58,7 +60,7 @@
     <app-doc-view
       *ngIf="project.viewer === 'doc'"
       [project]="project"
-      [width]="width"
+      [width]="project.width"
     >
     </app-doc-view>
   </div>
