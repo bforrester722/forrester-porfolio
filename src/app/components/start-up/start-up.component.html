@@ -1,0 +1,16 @@
+<div class="background" [ngClass]="{ hideStart: hideStart === true }">
+  <div class="wrapper">
+    <img src="assets/imgs/puterware_logo.svg" />
+    <div class="lottieWrapper">
+      <app-lottie
+        [animation]="'loader'"
+        draggable="false"
+        [speed]="2"
+      ></app-lottie>
+    </div>
+  </div>
+  <div class="copyWrapper">
+    <p>Copyright © Puterware Corporation</p>
+    <h2>Puterware</h2>
+  </div>
+</div>
