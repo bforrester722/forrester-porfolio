@@ -5,6 +5,7 @@ import {
   ViewChildren,
   QueryList,
 } from '@angular/core';
+
 import { WindowComponent } from './components/window/window.component';
 // Services
 import { DataService } from './core/data.service';

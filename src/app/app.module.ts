@@ -25,6 +25,7 @@ import { PicViewComponent } from './components/pic-view/pic-view.component';
 import { TaskbarComponent } from './components/taskbar/taskbar.component';
 import { WindowComponent } from './components/window/window.component';
 import { passiveSupport } from 'passive-events-support/src/utils';
+import { StartUpComponent } from './components/start-up/start-up.component';
 passiveSupport({});
 export function playerFactory() {
   return player;
@@ -38,6 +39,7 @@ export function playerFactory() {
     DocViewComponent,
     FolderItemsComponent,
     PicViewComponent,
+    StartUpComponent,
     TaskbarComponent,
     WindowComponent,
   ],
