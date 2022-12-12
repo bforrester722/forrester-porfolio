@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { IStartMenu, IAnimation } from '../../app/shared/interfaces';
+import {
+  IStartMenu,
+  IAnimation,
+  IDesktopIcon,
+} from '../../app/shared/interfaces';
 
 @Injectable()
 export class DataService {
@@ -18,9 +22,9 @@ export class DataService {
   }
 
   // called by desktop-icon to get desktop json
-  getDesktopIcons(): Observable<object> {
+  getDesktopIcons(): Observable<IDesktopIcon[]> {
     return this.http
-      .get<object>(this.baseUrl + 'desktop.json')
+      .get<IDesktopIcon[]>(this.baseUrl + 'desktop.json')
       .pipe(catchError(this.handleError));
   }
 

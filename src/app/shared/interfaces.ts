@@ -42,7 +42,7 @@ export interface IPortfolio {
 // for desktop-icon-component
 export interface IDesktopIcon {
   icon: string;
-  index: number;
+
   name: string;
   viewer: string;
   education?: any;
