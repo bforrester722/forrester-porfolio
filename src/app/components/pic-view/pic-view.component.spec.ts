@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Input } from '@angular/core';
 import { ProjectService } from '../../core/project.service';
 import { PicViewComponent } from './pic-view.component';
 import { project } from './__mocks__/pic-view-test.component';

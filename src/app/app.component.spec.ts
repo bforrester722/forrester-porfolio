@@ -1,11 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   DesktopIconComponent,
-  WindowComponent,
+  StartUpComponent,
   TaskbarComponent,
+  WindowComponent,
 } from './components';
 import { DataService, FirestoreService, ProjectService } from './core';
 import { environment } from '../environments/environment';
@@ -14,10 +16,11 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule],
       declarations: [
         AppComponent,
         DesktopIconComponent,
+        StartUpComponent,
         TaskbarComponent,
         WindowComponent,
       ],
@@ -25,11 +28,10 @@ describe('AppComponent', () => {
       providers: [
         DataService,
         FirestoreService,
-        HttpClient,
-        HttpHandler,
         ProjectService,
         { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 
