@@ -1,13 +1,13 @@
 {
   "name": "bf-angular",
-  "version": "2.0.4",
+  "version": "2.0.6",
   "scripts": {
     "ng": "ng",
     "start": "ng serve  --open",
     "build": "ng build",
     "test": "ng test",
     "precommitTest": "ng test  --watch=false --browsers=ChromeHeadless",
-    "updateVersion": "npm --no-git-tag-version version patch",
+    "updateVersion": "npm --no-git-tag-version version patch && git add .",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prepare": "husky install"
