@@ -14,7 +14,7 @@ export class StartUpComponent {
   }
 
   hideStartUp = async () => {
-    await wait(3000);
+    await wait(2900);
     this.hideStart = true;
   };
 }
