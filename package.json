@@ -1,12 +1,13 @@
 {
   "name": "bf-angular",
-  "version": "2.0.1",
+  "version": "2.0.7",
   "scripts": {
     "ng": "ng",
     "start": "ng serve  --open",
     "build": "ng build",
     "test": "ng test",
-    "updateVersion": "npm --no-git-tag-version version patch",
+    "precommitTest": "ng test  --watch=false --browsers=ChromeHeadless",
+    "updateVersion": "npm --no-git-tag-version version patch && git add .",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prepare": "husky install"
@@ -44,10 +45,5 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.8.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "ng test"
-    }
   }
 }
