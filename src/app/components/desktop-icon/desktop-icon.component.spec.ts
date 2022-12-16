@@ -39,7 +39,7 @@ describe('DesktopIconComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeFalsy();
+    expect(component).toBeTruthy();
   });
 
   describe('dataService ', () => {
