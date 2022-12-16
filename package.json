@@ -1,13 +1,15 @@
 {
   "name": "bf-angular",
-  "version": "0.0.0",
+  "version": "2.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve  --open",
     "build": "ng build",
     "test": "ng test",
+    "updateVersion": "npm --no-git-tag-version version patch",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -34,7 +36,7 @@
     "@angular/cli": "~15.0.1",
     "@angular/compiler-cli": "^15.0.0",
     "@types/jasmine": "~4.3.0",
-    "husky": "^8.0.2",
+    "husky": "^8.0.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
