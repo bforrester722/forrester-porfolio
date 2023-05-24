@@ -75,6 +75,10 @@
   {
     "todos": [
       {
+        "todo": "Modernize looks",
+        "done": false
+      },
+      {
         "todo": "app.component: make last clicked based on previous windows index instead of Boolean",
         "done": false
       },
