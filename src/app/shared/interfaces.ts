@@ -42,7 +42,6 @@ export interface IPortfolio {
 // for desktop-icon-component
 export interface IDesktopIcon {
   icon: string;
-
   name: string;
   viewer: string;
   education?: any;
@@ -51,6 +50,13 @@ export interface IDesktopIcon {
   todos?: any;
 }
 
+// for folder-items-component
+export interface IFolderItem {
+  index: number;
+  name: string;
+  viewer: string;
+  src?: string;
+}
 // for app component
 export interface IOpenFile {
   height: number;

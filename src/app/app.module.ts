@@ -26,6 +26,7 @@ import { TaskbarComponent } from './components/taskbar/taskbar.component';
 import { WindowComponent } from './components/window/window.component';
 import { passiveSupport } from 'passive-events-support/src/utils';
 import { StartUpComponent } from './components/start-up/start-up.component';
+import { MacTaskbarComponent } from './components/mac-taskbar/mac-taskbar.component';
 passiveSupport({});
 export function playerFactory() {
   return player;
@@ -42,6 +43,7 @@ export function playerFactory() {
     StartUpComponent,
     TaskbarComponent,
     WindowComponent,
+    MacTaskbarComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
