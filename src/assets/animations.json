@@ -13,6 +13,12 @@
     "viewer": "pic",
     "bg": "black"
   },
+
+  {
+    "name": "me",
+    "viewer": "pic",
+    "bg": "black"
+  },
   {
     "name": "readme",
     "viewer": "pic"

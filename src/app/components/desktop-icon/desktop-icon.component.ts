@@ -8,7 +8,7 @@ import { IDesktopIcon } from '../../shared/interfaces';
   styleUrls: ['./desktop-icon.component.sass'],
 })
 export class DesktopIconComponent implements OnInit {
-  boxOptions: any = { paused: true };
+  boxOptions: any = { paused: true, loop: false };
   icons: IDesktopIcon[] = [];
   @Output() iconClicked: EventEmitter<IDesktopIcon> =
     new EventEmitter<IDesktopIcon>();
