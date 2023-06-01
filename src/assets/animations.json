@@ -1,65 +1,70 @@
- [
- 	{
-
- 		"name":   "russ",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "vader",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "gameboy",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "gameboy_advance",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "linkable",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "offline",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "performance",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "responsive",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "security",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "third_party",
- 		"viewer": "pic"
- 	}, 
- 	{
-
- 		"name": "react_demo",
- 		"viewer": "pic",
- 		"bg": "black"
- 	}, 
- 	{
-
- 		"name": "text_bubbles",
- 		"viewer": "pic",
- 		"bg": "black"
- 	}
-
- ]
+[
+  {
+    "name": "animations",
+    "viewer": "pic",
+    "bg": "black"
+  },
+  {
+    "name": "box",
+    "viewer": "pic"
+  },
+  {
+    "name": "meteor",
+    "viewer": "pic",
+    "bg": "black"
+  },
+  {
+    "name": "readme",
+    "viewer": "pic"
+  },
+  {
+    "name": "russ",
+    "viewer": "pic"
+  },
+  {
+    "name": "vader",
+    "viewer": "pic"
+  },
+  {
+    "name": "gameboy",
+    "viewer": "pic"
+  },
+  {
+    "name": "gameboy_advance",
+    "viewer": "pic"
+  },
+  {
+    "name": "linkable",
+    "viewer": "pic"
+  },
+  {
+    "name": "offline",
+    "viewer": "pic"
+  },
+  {
+    "name": "performance",
+    "viewer": "pic"
+  },
+  {
+    "name": "responsive",
+    "viewer": "pic"
+  },
+  {
+    "name": "security",
+    "viewer": "pic"
+  },
+  {
+    "name": "third_party",
+    "viewer": "pic"
+  },
+  {
+    "name": "react_demo",
+    "viewer": "pic",
+    "bg": "black"
+  },
+  {
+    "name": "text_bubbles",
+    "viewer": "pic",
+    "bg": "black"
+  }
+]

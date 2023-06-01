@@ -8,6 +8,7 @@ import { IDesktopIcon } from '../../shared/interfaces';
   styleUrls: ['./desktop-icon.component.sass'],
 })
 export class DesktopIconComponent implements OnInit {
+  boxOptions: any = { paused: true };
   icons: IDesktopIcon[] = [];
   @Output() iconClicked: EventEmitter<IDesktopIcon> =
     new EventEmitter<IDesktopIcon>();
@@ -19,6 +20,11 @@ export class DesktopIconComponent implements OnInit {
     this.dataService.getDesktopIcons().subscribe((desktop: IDesktopIcon[]) => {
       this.icons = desktop;
     });
+  }
+
+  // used to play and reverse animation on hover
+  hover(paused: boolean, name: string) {
+    this.boxOptions = { ...this.boxOptions, paused, name };
   }
 
   // emits to app.component to open selected icon file/s

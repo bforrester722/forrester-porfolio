@@ -4,6 +4,19 @@
   (window:resize)="onResize($event)"
 >
   <div class="content">
+    <app-lottie
+      [ngStyle]="{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        pointerEvents: 'none'
+      }"
+      [animation]="'meteor'"
+      [options]="{ paused: false }"
+      draggable="false"
+    ></app-lottie>
     <app-desktop-icon (iconClicked)="openDesktopFolder($event)">
     </app-desktop-icon>
 
@@ -25,21 +38,10 @@
     (maximize)="maximizeWindow($event)"
   >
   </app-taskbar>
-  <app-lottie
-    [ngStyle]="{
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      pointerEvents: 'none'
-    }"
-    [animation]="'meteor'"
-    draggable="false"
-  ></app-lottie>
+
   <!-- <app-mac-taskbar></app-mac-taskbar> -->
 </div>
 
-<app-start-up> </app-start-up>
+<!-- <app-start-up> </app-start-up> -->
 
 <router-outlet></router-outlet>
