@@ -12,10 +12,11 @@
   },
   {
     "index": 3,
+    "animation": "me",
     "name": "resume",
     "viewer": "doc",
     "src": "./assets/imgs/profile.png",
-    "paragraph": "College graduate with a Bachelor of Science (B.S.) in Computer Information Technology (4.0) with 5+ years of work experience.  Strong Experience using front-end technologies like Angular, React, Webpack, HTML5, CSS3/Sass, JavaScript, JSON. Can work equally well in highly collaborative settings as well as those with little direction. Praised as diligent by my peers, I can be relied upon to help your company achieve its goals",
+    "paragraph": "College graduate with a Bachelor of Science (B.S.) in Computer Information Technology (4.0) with 5+ years of work experience.  Strong Experience using front-end technologies like Angular, React, Webpack, HTML5, CSS3/Sass, JavaScript, Lottie Animations, JSON. Can work equally well in highly collaborative settings as well as those with little direction. Praised as diligent by my peers, I can be relied upon to help your company achieve its goals",
     "education": [
       {
         "awards": ["Summa Cum Laude", "Valedictorian Candidate"],
@@ -76,13 +77,12 @@
         "business": "United States Navy, August 2002 – May 2006",
         "title": "Aviation Electrician"
       }
-    ],
-    "icon": "insert_drive_file"
+    ]
   },
   {
     "todos": [
       {
-        "todo": "Modernize looks",
+        "todo": "Modernize looks (work in progress)",
         "done": false
       },
       {
@@ -121,6 +121,6 @@
     "animation": "readme",
     "name": "readme",
     "viewer": "doc",
-    "paragraph": "Hello welcome to my portfolio website, and my first project made with Angular. It also uses sass instead of css, because if you are going to learn something might as well add more to it. Most of my projects were made with Polymer 3, and one with React. This project looks basic right now, but all functionality is there. In between applying for jobs, I will be prettifying it."
+    "paragraph": "Welcome to my web developer portfolio website! I am thrilled to have the opportunity to showcase my skills, expertise, and passion for web development. Throughout my journey as a web developer, I have honed my abilities in various programming languages, including HTML, CSS, JavaScript, and several frameworks like React and Angular. From crafting responsive and mobile-friendly designs to optimizing website performance and implementing efficient algorithms, I take pride in delivering high-quality solutions that meet both user and client expectations."
   }
 ]
