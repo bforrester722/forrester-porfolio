@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { MatIconModule } from '@angular/material/icon';
 
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { environment } from '../environments/environment';
 
 // Firebase
@@ -13,9 +13,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 
 // lottie
-import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web/build/player/lottie_light';
 
+import '@lottiefiles/lottie-player';
 // my components
 import { AppLottieComponent } from './components/app-lottie/app-lottie.component';
 import { DocViewComponent } from './components/doc-view/doc-view.component';
@@ -28,9 +27,6 @@ import { passiveSupport } from 'passive-events-support/src/utils';
 import { StartUpComponent } from './components/start-up/start-up.component';
 import { MacTaskbarComponent } from './components/mac-taskbar/mac-taskbar.component';
 passiveSupport({});
-export function playerFactory() {
-  return player;
-}
 
 @NgModule({
   declarations: [
@@ -52,10 +48,11 @@ export function playerFactory() {
     BrowserAnimationsModule,
     BrowserModule,
     CoreModule,
-    LottieModule.forRoot({ player: playerFactory }),
+
     MatIconModule,
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

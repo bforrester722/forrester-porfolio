@@ -41,6 +41,7 @@ export interface IPortfolio {
 
 // for desktop-icon-component
 export interface IDesktopIcon {
+  animation?: string;
   icon: string;
   name: string;
   viewer: string;
@@ -48,6 +49,13 @@ export interface IDesktopIcon {
   src?: string;
   paragraph?: string;
   todos?: any;
+}
+
+export interface ILottie {
+  name: string;
+  setSpeed: (num: Number) => void;
+  setDirection: (num: Number) => void;
+  play: () => void;
 }
 
 // for folder-items-component

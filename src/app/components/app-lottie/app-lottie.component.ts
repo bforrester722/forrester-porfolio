@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { AnimationItem } from 'lottie-web';
-import { AnimationOptions } from 'ngx-lottie';
+import { Component, Input, ViewChild } from '@angular/core';
+import { ILottie } from 'app/shared/interfaces';
 
 @Component({
   selector: 'app-lottie',
@@ -8,35 +7,53 @@ import { AnimationOptions } from 'ngx-lottie';
   styleUrls: ['./app-lottie.component.sass'],
 })
 export class AppLottieComponent {
-  @Input() paused: boolean = false;
-  @Input() speed: number = 1;
-  private _animation: string = '';
+  @Input() animation: string = '';
+  @Input() options: any = {};
+  @ViewChild('lottieAnimation') lottieAnimation: { nativeElement: ILottie };
 
-  @Input() get animation(): string {
-    return this._animation;
+  // loads animation on init
+  ngOnInit() {
+    this.options = {
+      ...this.options, // In case you have other properties that you want to copy
+      path: `../../assets/animations/${this.animation}.json`,
+    };
   }
 
-  // sets animation selected from start menu
-  set animation(value: string) {
-    if (value) {
-      this._animation = value;
+  // after init pause animation if needed
+  ngAfterViewInit() {
+    const { nativeElement } = this.lottieAnimation;
+    this.handleUnpaused(nativeElement);
+  }
 
-      this.options = {
-        ...this.options, // In case you have other properties that you want to copy
-        path: `../../assets/animations/${this.animation}.json`,
-      };
+  // catch changes to update animation
+  ngOnChanges(changes: any) {
+    this.updateAnimation(changes.options?.currentValue);
+  }
+
+  // pauses or plays animation
+  updateAnimation(opt: { paused: boolean; name: string }): void {
+    if (
+      !this.lottieAnimation?.nativeElement ||
+      this.lottieAnimation?.nativeElement.name !== opt.name
+    )
       return;
-    }
+
+    const { nativeElement } = this.lottieAnimation;
+    opt.paused
+      ? this.handlePaused(nativeElement)
+      : this.handleUnpaused(nativeElement);
   }
 
-  options: AnimationOptions = {};
+  // used to play animation in reverse at double speed
+  handlePaused(nativeElement: ILottie) {
+    nativeElement.setSpeed(2);
+    nativeElement.setDirection(-1);
+    nativeElement.play();
+  }
 
-  animationCreated(animationItem: AnimationItem): void {
-    if (this.paused) {
-      animationItem.autoplay = false;
-      animationItem.loop = false;
-      animationItem.goToAndStop(10, true);
-    }
-    animationItem.setSpeed(this.speed);
+  handleUnpaused(nativeElement: ILottie) {
+    nativeElement.setSpeed(1);
+    nativeElement.setDirection(1);
+    nativeElement.play();
   }
 }

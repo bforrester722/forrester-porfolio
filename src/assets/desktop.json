@@ -1,25 +1,21 @@
 [
   {
-    "name": "portfolio",
-    "viewer": "folder",
-    "icon": "folder_open"
-  },
-  {
+    "animation": "animations",
     "name": "animations",
     "viewer": "folder",
     "icon": "live_tv"
   },
   {
+    "animation": "box",
     "name": "icons",
-    "viewer": "folder",
-    "icon": "adb"
+    "viewer": "folder"
   },
   {
     "index": 3,
     "name": "resume",
     "viewer": "doc",
     "src": "./assets/imgs/profile.png",
-    "paragraph": "Adaptable recent college graduate with a Bachelor of Science (B.S.) in Computer Information Technology (4.0) with 2+ years of work experience. Aiming to leverage academic experience and a proven knowledge of real time data, web design, and programming to successfully fill the web developer role at your company. Frequently praised as diligent by my peers, I can be relied upon to help your company achieve its goals",
+    "paragraph": "College graduate with a Bachelor of Science (B.S.) in Computer Information Technology (4.0) with 5+ years of work experience.  Strong Experience using front-end technologies like Angular, React, Webpack, HTML5, CSS3/Sass, JavaScript, JSON. Can work equally well in highly collaborative settings as well as those with little direction. Praised as diligent by my peers, I can be relied upon to help your company achieve its goals",
     "education": [
       {
         "awards": ["Summa Cum Laude", "Valedictorian Candidate"],
@@ -42,12 +38,23 @@
     "experience": [
       {
         "bullets": [
+          "Involved in developing UI pages using Angular and React.",
+          "Worked in a highly collaborative agile team environment.",
+          "Conducted training with junior personnel and clients.",
+          "Successfully optimized web applications for performance and scalability, resulting in faster load times and enhanced responsiveness.",
+          "Integrated with backend APIs and effectively utilized data from RESTful services to enhance application functionality"
+        ],
+        "business": "MediaSourcery, November 2020 – Present",
+        "title": "SENIOR FRONTEND DEVELOPER"
+      },
+      {
+        "bullets": [
           "Analyze user needs to determine technical requirements.",
           "Create designs, concepts, and sample layouts based on knowledge of layout principles and esthetic design concepts.",
           "Design, build, or maintain web sites, using authoring or scripting languages, content creation tools, management tools, and digital media.",
           "Conduct trial runs of programs and software applications to be sure they will produce the desired information and that the instructions are correct."
         ],
-        "business": "Spriteful LLC, May 2018 – Present",
+        "business": "Spriteful LLC, May 2018 – 2020",
         "title": "OWNER OPERATOR / PWA BUILDER"
       },
       {
@@ -111,10 +118,9 @@
       },
       { "todo": "Make favicon", "done": true }
     ],
-
+    "animation": "readme",
     "name": "readme",
     "viewer": "doc",
-    "paragraph": "Hello welcome to my portfolio website, and my first project made with Angular. It also uses sass instead of css, because if you are going to learn something might as well add more to it. Most of my projects were made with Polymer 3, and one with React. This project looks basic right now, but all functionality is there. In between applying for jobs, I will be prettifying it.",
-    "icon": "insert_drive_file"
+    "paragraph": "Hello welcome to my portfolio website, and my first project made with Angular. It also uses sass instead of css, because if you are going to learn something might as well add more to it. Most of my projects were made with Polymer 3, and one with React. This project looks basic right now, but all functionality is there. In between applying for jobs, I will be prettifying it."
   }
 ]
