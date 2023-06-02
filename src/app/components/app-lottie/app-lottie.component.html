@@ -4,5 +4,7 @@
   [autoplay]="!options.paused"
   [src]="options.path"
   [loop]="options.loop !== false"
+  (mouseover)="handleUnpaused()"
+  (mouseleave)="handlePaused()"
 >
 </lottie-player>

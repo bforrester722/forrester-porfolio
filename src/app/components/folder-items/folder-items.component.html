@@ -11,7 +11,7 @@
       <app-lottie
         *ngIf="!item.src"
         [animation]="item.name"
-        [paused]="paused"
+        [options]="{ paused: true }"
         draggable="false"
       ></app-lottie>
     </div>

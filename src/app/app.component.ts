@@ -5,7 +5,9 @@ import {
   ViewChildren,
   QueryList,
 } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
+import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 import { WindowComponent } from './components/window/window.component';
 // Services
 import { DataService } from './core/data.service';
@@ -36,11 +38,14 @@ export class AppComponent implements OnInit, OnDestroy {
   animations: IAnimation[] = [];
   openFiles: Array<IOpenFile> = [];
   portfolio: IPortfolio[] = [];
+  bgLottieOptions: any = {};
 
   constructor(
     private firestoreService: FirestoreService,
     private projectService: ProjectService,
-    private dataService: DataService
+    private dataService: DataService,
+    private responsive: BreakpointObserver,
+    analytics: AngularFireAnalytics
   ) {
     // ran when arrow in pic-view to change project in window
     this.subscription = this.projectService
@@ -72,11 +77,15 @@ export class AppComponent implements OnInit, OnDestroy {
           });
         }
       });
+    analytics.logEvent('custom_event', { yeah: 'someone her' });
   }
 
   ngOnInit() {
     // fixes address bar on phones making 100vh not work correctly
     this.screenHeight = window.innerHeight;
+    this.responsive.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.bgLottieOptions = { paused: result.matches };
+    });
     // uses firestoreSevice to get icons
     this.firestoreService.getCollection('icons').subscribe((icons) => {
       const sorted = icons.sort((a, b) => (a.name > b.name ? 1 : -1));

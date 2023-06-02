@@ -12,7 +12,8 @@ import { of } from 'rxjs';
 import { DesktopIconComponent } from './desktop-icon.component';
 import { DataService } from '../../core';
 import desktopIcons from '../../../assets/desktop.json';
-
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../../../environments/environment';
 describe('DesktopIconComponent', () => {
   let component: DesktopIconComponent;
   let fixture: ComponentFixture<DesktopIconComponent>;
@@ -23,7 +24,11 @@ describe('DesktopIconComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DesktopIconComponent],
-      imports: [MatIconModule, HttpClientTestingModule],
+      imports: [
+        MatIconModule,
+        HttpClientTestingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+      ],
       providers: [DataService, MatIconModule, HttpClient],
     }).compileComponents();
   });

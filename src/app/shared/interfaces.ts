@@ -55,6 +55,7 @@ export interface ILottie {
   name: string;
   setSpeed: (num: Number) => void;
   setDirection: (num: Number) => void;
+  pause: () => void;
   play: () => void;
 }
 
