@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../core/data.service';
 import { IDesktopIcon } from '../../shared/interfaces';
+import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 
 @Component({
   selector: 'app-desktop-icon',
@@ -13,7 +14,10 @@ export class DesktopIconComponent implements OnInit {
   @Output() iconClicked: EventEmitter<IDesktopIcon> =
     new EventEmitter<IDesktopIcon>();
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private analytics: AngularFireAnalytics
+  ) {}
 
   ngOnInit(): void {
     // gets desktop icons from desktop.json
@@ -29,6 +33,7 @@ export class DesktopIconComponent implements OnInit {
 
   // emits to app.component to open selected icon file/s
   desktopIconClicked(item: IDesktopIcon) {
+    this.analytics.logEvent('custom_event', { desktopIconClicked: item.name });
     this.iconClicked.emit(item);
   }
 }

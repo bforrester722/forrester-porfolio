@@ -9,9 +9,15 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { environment } from '../environments/environment';
 
 // Firebase
-import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireModule, FirebaseApp } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
-
+import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
+import {
+  provideAnalytics,
+  getAnalytics,
+  ScreenTrackingService,
+  UserTrackingService,
+} from '@angular/fire/analytics';
 // lottie
 
 import '@lottiefiles/lottie-player';
@@ -43,13 +49,16 @@ passiveSupport({});
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAnalyticsModule,
     AngularFirestoreModule, // firestore
+    AngularFireAnalyticsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     CoreModule,
 
     MatIconModule,
+    provideAnalytics(() => getAnalytics()),
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

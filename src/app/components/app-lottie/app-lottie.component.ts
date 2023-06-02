@@ -19,12 +19,6 @@ export class AppLottieComponent {
     };
   }
 
-  // after init pause animation if needed
-  ngAfterViewInit() {
-    const { nativeElement } = this.lottieAnimation;
-    this.handleUnpaused(nativeElement);
-  }
-
   // catch changes to update animation
   ngOnChanges(changes: any) {
     this.updateAnimation(changes.options?.currentValue);
@@ -32,26 +26,20 @@ export class AppLottieComponent {
 
   // pauses or plays animation
   updateAnimation(opt: { paused: boolean; name: string }): void {
-    if (
-      !this.lottieAnimation?.nativeElement ||
-      this.lottieAnimation?.nativeElement.name !== opt.name
-    )
-      return;
-
+    if (!this.lottieAnimation?.nativeElement) return;
     const { nativeElement } = this.lottieAnimation;
-    opt.paused
-      ? this.handlePaused(nativeElement)
-      : this.handleUnpaused(nativeElement);
+    opt.paused ? nativeElement.pause() : nativeElement.play();
   }
 
-  // used to play animation in reverse at double speed
-  handlePaused(nativeElement: ILottie) {
+  handlePaused() {
+    const { nativeElement } = this.lottieAnimation;
     nativeElement.setSpeed(2);
     nativeElement.setDirection(-1);
     nativeElement.play();
   }
 
-  handleUnpaused(nativeElement: ILottie) {
+  handleUnpaused() {
+    const { nativeElement } = this.lottieAnimation;
     nativeElement.setSpeed(1);
     nativeElement.setDirection(1);
     nativeElement.play();

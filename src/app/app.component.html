@@ -13,9 +13,8 @@
         right: 0,
         pointerEvents: 'none'
       }"
+      [options]="bgLottieOptions"
       [animation]="'meteor'"
-      [options]="{ paused: false }"
-      draggable="false"
     ></app-lottie>
     <app-desktop-icon (iconClicked)="openDesktopFolder($event)">
     </app-desktop-icon>
