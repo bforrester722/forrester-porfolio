@@ -45,6 +45,7 @@ export class WindowComponent implements AfterViewInit {
   set project(value: any) {
     if (value) {
       this._project = value;
+
       this.loadBackground();
       return;
     }
@@ -269,7 +270,14 @@ export class WindowComponent implements AfterViewInit {
 
   // called from app-component to restore window if needed
   maximize() {
-    const { left, top } = this.box.nativeElement.getBoundingClientRect();
+    const { left, top, right, bottom } =
+      this.box.nativeElement.getBoundingClientRect();
+    const { innerHeight, innerWidth } = window;
+    if (left < 0 || right > innerWidth || top > innerHeight || bottom < 0) {
+      this.updateSize(innerWidth, innerHeight, 0, 0);
+      return;
+    }
+
     if (top < window.innerHeight) {
       return;
     }

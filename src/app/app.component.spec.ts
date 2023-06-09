@@ -1,11 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  AngularFireModule,
-  FIREBASE_OPTIONS,
-  FirebaseApp,
-} from '@angular/fire/compat';
+import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   DesktopIconComponent,
@@ -14,7 +10,6 @@ import {
   WindowComponent,
 } from './components';
 import { DataService, FirestoreService, ProjectService } from './core';
-import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 

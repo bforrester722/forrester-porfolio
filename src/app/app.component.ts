@@ -14,6 +14,7 @@ import { DataService } from './core/data.service';
 import { FirestoreService } from './core/firestore.service';
 import { ProjectService } from './core/project.service';
 import { Subscription } from 'rxjs';
+import { OsService } from './shared/services/os.service';
 // interfaces
 import { IAnimation, IIcons, IPortfolio, IOpenFile } from './shared/interfaces';
 import { wait } from './helpers/helper';
@@ -39,12 +40,14 @@ export class AppComponent implements OnInit, OnDestroy {
   openFiles: Array<IOpenFile> = [];
   portfolio: IPortfolio[] = [];
   bgLottieOptions: any = {};
+  os: string;
 
   constructor(
     private firestoreService: FirestoreService,
     private projectService: ProjectService,
     private dataService: DataService,
     private responsive: BreakpointObserver,
+    private osService: OsService,
     analytics: AngularFireAnalytics
   ) {
     // ran when arrow in pic-view to change project in window
@@ -77,14 +80,28 @@ export class AppComponent implements OnInit, OnDestroy {
           });
         }
       });
-    analytics.logEvent('custom_event', { yeah: 'someone her' });
   }
 
   ngOnInit() {
+    // this.os = this.osService.getOs();
+    // used to hide all other cards in html
+    this.osService.subscribe((data) => {
+      this.os = data;
+    });
+
     // fixes address bar on phones making 100vh not work correctly
     this.screenHeight = window.innerHeight;
     this.responsive.observe(Breakpoints.XSmall).subscribe((result) => {
-      this.bgLottieOptions = { paused: result.matches };
+      this.bgLottieOptions = {
+        ...this.bgLottieOptions,
+        paused: result.matches,
+      };
+    });
+
+    this.responsive.observe(Breakpoints.XLarge).subscribe((result) => {
+      this.bgLottieOptions = {
+        style: result.matches ? 'height: auto' : 'width: max-content ',
+      };
     });
     // uses firestoreSevice to get icons
     this.firestoreService.getCollection('icons').subscribe((icons) => {
@@ -123,7 +140,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // emitted from taskbar to maximize window
   maximizeWindow(project: any) {
-    this.childrenFolder.toArray()[project.openIndex].maximize();
+    const newProject: any = this.openFiles.find(
+      (file) => file.name === project.name
+    );
+    if (!newProject) return;
+    this.childrenFolder.toArray()[newProject.openIndex].maximize();
     this.setLastClicked(project);
   }
 
@@ -162,7 +183,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // TODO other previous windows need to be on top in order of last viewed
   setLastClicked(data: any) {
     this.openFiles.map((file) => {
-      if (file.openIndex === data.openIndex) {
+      if (file.name === data.name) {
         file.lastClicked = true;
         return;
       }
@@ -182,6 +203,16 @@ export class AppComponent implements OnInit, OnDestroy {
   // opens folder and passes in data
   openDesktopFolder(item: any) {
     const items = (this as any)[item.name];
+    const alreadyOpen = this.openFiles.find((file) => file.name === item.name);
+    if (alreadyOpen) {
+      this.setLastClicked({
+        ...item,
+        openIndex: this.openFiles.length,
+        lastClicked: true,
+      });
+      return;
+    }
+
     const builtItem = {
       lastClicked: true,
       items,
