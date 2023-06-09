@@ -1,6 +1,6 @@
 {
   "name": "bf-angular",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "scripts": {
     "ng": "ng",
     "start": "ng serve  --open",
@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "15.0.0",
     "@angular/router": "15.0.0",
     "@lottiefiles/lottie-player": "^1.7.1",
+    "default-passive-events": "^2.0.0",
     "firebase": "^9.9.3",
     "lottie-player": "^1.0.0",
     "passive-events-support": "^1.0.33",

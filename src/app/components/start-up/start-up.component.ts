@@ -7,14 +7,14 @@ import packageInfo from '../../../../package.json';
   styleUrls: ['./start-up.component.sass'],
 })
 export class StartUpComponent {
-  hideStart: boolean = true;
+  hideStart: boolean = false;
   version: string = packageInfo.version;
   ngOnInit() {
     this.hideStartUp();
   }
 
   hideStartUp = async () => {
-    await wait(0);
+    await wait(2900);
     this.hideStart = true;
   };
 }

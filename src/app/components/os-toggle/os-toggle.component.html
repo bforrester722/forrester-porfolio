@@ -1,0 +1,11 @@
+<div class="toggle">
+  <mat-button-toggle-group
+    name="osSelected"
+    aria-label="Os Selected"
+    value="mac"
+    (change)="onOsChange($event.value)"
+  >
+    <mat-button-toggle value="mac">YAC</mat-button-toggle>
+    <mat-button-toggle value="windows">PANELS</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

@@ -84,7 +84,6 @@ describe('FolderItemsComponent', () => {
       // tick();
       fixture.detectChanges();
       projectService.getProject().subscribe((value) => {
-        console.log('ass');
         expect(value).toBe(files[randomIcon]);
         // done();
       });

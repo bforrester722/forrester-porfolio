@@ -1,1 +1,14 @@
-<p class="taskbar">mac-taskbar works!</p>
+<div class="taskbar">
+  <div class="blur">
+    <div class="desktop-icon" *ngFor="let item of icons">
+      <img
+        [src]="'assets/imgs/' + item.name + '.svg'"
+        draggable="false"
+        class="animate"
+        [ngStyle]="{ 'max-height': '96px' }"
+        [ngClass]="isOpen === item.name ? 'bounce' : ''"
+        (click)="desktopIconClicked(item)"
+      />
+    </div>
+  </div>
+</div>
