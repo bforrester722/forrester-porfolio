@@ -1,9 +1,21 @@
-
 <div class="desktop-icon-wrapper">
-	<div class="desktop-icon" *ngFor="let item of icons">
-		<mat-icon (click)="desktopIconClicked(item)">
- 	  	{{item.icon}}
-		</mat-icon>
-		<div class="title">{{item.name | titlecase}}</div>
-	</div>
+  <div class="desktop-icon" *ngFor="let item of icons">
+    <div *ngIf="item.animation; else show_icon">
+      <app-lottie
+        [animation]="item.animation"
+        [options]="this.boxOptions"
+        draggable="false"
+        #boxLottie
+        (click)="desktopIconClicked(item)"
+      ></app-lottie>
+    </div>
+
+    <ng-template #show_icon>
+      <mat-icon (click)="desktopIconClicked(item)">
+        {{ item.icon }}
+      </mat-icon>
+    </ng-template>
+
+    <div class="title">{{ item.name | titlecase }}</div>
+  </div>
 </div>

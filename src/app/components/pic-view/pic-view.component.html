@@ -1,18 +1,24 @@
-
 <div class="content">
-	<mat-icon class="left-arrow"
-						[ngStyle]="{'color': project.bg ? 'white' : 'black'}"
-						(click)="arrowClicked('-')" >
-		keyboard_arrow_left
-	</mat-icon>
-	
-	<img *ngIf="project.src" src="{{project.src}}" draggable="false">
-	<app-lottie *ngIf="!project.src" [animation]="project.name" draggable="false"></app-lottie>
+  <mat-icon
+    class="left-arrow"
+    [ngStyle]="{ color: project.bg || os === 'mac' ? 'white' : 'black' }"
+    (click)="arrowClicked(-1)"
+  >
+    keyboard_arrow_left
+  </mat-icon>
 
-	<mat-icon class="right-arrow" 
-					  [ngStyle] = "{'color': project.bg ? 'white' : 'black'}"
-	          (click)="arrowClicked('+')">
-	  keyboard_arrow_right
-	</mat-icon>
+  <img *ngIf="project.src" src="{{ project.src }}" draggable="false" />
+  <app-lottie
+    *ngIf="!project.src"
+    [animation]="project.name"
+    draggable="false"
+  ></app-lottie>
+
+  <mat-icon
+    class="right-arrow"
+    [ngStyle]="{ color: project.bg || os === 'mac' ? 'white' : 'black' }"
+    (click)="arrowClicked(1)"
+  >
+    chevron_right</mat-icon
+  >
 </div>
-

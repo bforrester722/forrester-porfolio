@@ -1,45 +1,47 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AnimationItem }    from 'lottie-web';
-import { AnimationOptions } from 'ngx-lottie';
+import { Component, Input, ViewChild } from '@angular/core';
+import { ILottie } from 'app/shared/interfaces';
 
 @Component({
   selector: 'app-lottie',
   templateUrl: './app-lottie.component.html',
-  styleUrls: ['./app-lottie.component.sass']
+  styleUrls: ['./app-lottie.component.sass'],
 })
-
 export class AppLottieComponent {
+  @Input() animation: string = '';
+  @Input() options: any = {};
+  @ViewChild('lottieAnimation') lottieAnimation: { nativeElement: ILottie };
 
-  @Input() paused: boolean = false;
-
-  private _animation: string = '';
-
-  @Input() get animation(): string {
-    return this._animation;
+  // loads animation on init
+  ngOnInit() {
+    this.options = {
+      ...this.options, // In case you have other properties that you want to copy
+      path: `../../assets/animations/${this.animation}.json`,
+    };
   }
 
-  // sets animation selected from start menu
-  set animation(value: string ) {
-    if (value) {
-      this._animation = value;
-   
-      this.options = {
-        ...this.options, // In case you have other properties that you want to copy
-        path: `../../assets/animations/${this.animation}.json`,
-
-      };
-      return;
-    }
+  // catch changes to update animation
+  ngOnChanges(changes: any) {
+    this.updateAnimation(changes.options?.currentValue);
   }
 
-  options: AnimationOptions = {
-  };
+  // pauses or plays animation
+  updateAnimation(opt: { paused: boolean; name: string }): void {
+    if (!this.lottieAnimation?.nativeElement) return;
+    const { nativeElement } = this.lottieAnimation;
+    opt.paused ? nativeElement.pause() : nativeElement.play();
+  }
 
- animationCreated(animationItem: AnimationItem): void {
-    if (this.paused) {
-      animationItem.autoplay = false;
-      animationItem.loop = false;
-      animationItem.goToAndStop(10, true) 
-    }
+  handlePaused() {
+    const { nativeElement } = this.lottieAnimation;
+    nativeElement.setSpeed(2);
+    nativeElement.setDirection(-1);
+    nativeElement.play();
+  }
+
+  handleUnpaused() {
+    const { nativeElement } = this.lottieAnimation;
+    nativeElement.setSpeed(1);
+    nativeElement.setDirection(1);
+    nativeElement.play();
   }
 }

@@ -1,97 +1,126 @@
- [
- 	{
- 		"index": 0,
- 		"name": "portfolio",
- 		"viewer": "folder",
- 		"icon": "folder_open"
- 	}, 
- 	{
-		"index": 1,
- 		"name": "animations",
- 		"viewer": "folder",
- 		"icon": "live_tv"
- 	}, 
- 	{
-		"index": 2,
- 		"name": "icons",
- 		"viewer": "folder",
- 		"icon": "adb"
- 	}, 
- 	{
-		"index": 3,
- 		"name": "resume",
- 		"viewer": "doc",
- 		"src": "./assets/imgs/profile.png",
- 		"paragraph": "Adaptable recent college graduate with a Bachelor of Science (B.S.) in Computer Information Technology (4.0) with 2+ years of work experience. Aiming to leverage academic experience and a proven knowledge of real time data, web design, and programming to successfully fill the web developer role at your company. Frequently praised as diligent by my peers, I can be relied upon to help your company achieve its goals",
- 		"education": [
- 			{
- 				"awards": ["Summa Cum Laude", "Valedictorian Candidate"],
- 				"degree": "Bachelor of Science (B.S.) Computer Information Technology (May 2019)",
- 				"gpa": "4.0",
- 				"location": "Kerrville, Tx",
- 				"school": "Schreiner University"
- 			},
- 			{
- 				"degree": "Associate in Science (A.S.) Programming Certificate (Undergraduate) (June 2016)",
- 				"gpa": "4.0",
- 				"location": "Online",
- 				"relevant": ["Programming in Html5 With JavaScript", "Windows Application Development Using Html5 And JavaScript"],
- 				"school": "University of Phoenix"
- 			}
- 		],
- 		"experience": [
- 			{
- 				"bullets": [
- 					"Analyze user needs to determine technical requirements.",
- 					"Create designs, concepts, and sample layouts based on knowledge of layout principles and esthetic design concepts.",
- 					"Design, build, or maintain web sites, using authoring or scripting languages, content creation tools, management tools, and digital media.",
- 					"Conduct trial runs of programs and software applications to be sure they will produce the desired information and that the instructions are correct."
- 				],
- 				"business": "Spriteful LLC, May 2018 – Present",
-				"title": "OWNER OPERATOR / PWA BUILDER"
- 			},
- 			{
- 				"bullets": [
- 					"Streamline data entry to cut entry time by over 75% with VBA in Microsoft Excel.",
- 					"Train other staff members to perform work activities, such as using computer applications.",
- 					"Design, build, or maintain web sites, using authoring or scripting languages, content creation tools, management tools, and digital media.",
- 					"Conduct trial runs of programs and software applications to be sure they will produce the desired information and that the instructions are correct."
- 				],
- 				"business": "Andiamo Services LLC, August 2013 – August 2016",
-				"title": "OFFICE CLERK"
- 			},
- 			{
- 				"bullets": [
- 					"Test and troubleshoot instruments, components, and assemblies.",
- 					"Keep records of maintenance and repair work.",
- 					"Adjust, repair, or replace malfunctions components."
- 				],
- 				"business": "Spriteful LLC, May 2018 – Present",
-				"title": "OWNER OPERATOR / PWA BUILDER"
- 			}
- 		],
- 		"icon": "insert_drive_file"
- 	}, 
- 	{
- 		"todos" : [
- 			{"todo":	"app.component: make last clicked based on previous windows index instead of Boolean", "done": false},
-			{"todo":	"desktop.icon: make my own desktop icons", "done": false},
-			{"todo":	"taskbar.component: make taskbar on top of everything", "done": true},
-			{"todo":	"window.component: performance on phone is an issue", "done": true},
-			{"todo":	"window.component: remove code pertainig to trying to contain window movement", "done": false},
-			{"todo":	"Fix issue with time sync bogging down website (disabled for now)", "done": true},
-			{"todo":	"Grid resume for better large screen viewing", "done": false},
-			{"todo":	"Finish resume wording", "done": false},
-			{"todo":	"Work on wording for portfolio pages and add more", "done": false},
-			{"todo":	"Make transition between switching icons/animation", "done": false},
-			{"todo":	"Make favicon" , "done": true}
-
-		],
-		"index": 4,
- 		"name": "readme",
- 		"viewer": "doc",
- 		"paragraph": "Welcome to my portfolio website, and my first project made with Angular. It also uses sass instead of css, because if you are going to learn something might as well add more to it. Most of my projects were made with Polymer 3, and one with React. This project looks basic right now, but all functionality is there. In between applying for jobs, I will be prettifying it.",
- 		"icon": "insert_drive_file"
- 	}
-
- ]
+[
+  {
+    "animation": "animations",
+    "name": "animations",
+    "viewer": "folder",
+    "icon": "live_tv"
+  },
+  {
+    "animation": "box",
+    "name": "icons",
+    "viewer": "folder"
+  },
+  {
+    "index": 3,
+    "animation": "me",
+    "name": "resume",
+    "viewer": "doc",
+    "src": "./assets/imgs/profile.png",
+    "paragraph": "College graduate with a Bachelor of Science (B.S.) in Computer Information Technology (4.0) with 5+ years of work experience.  Strong Experience using front-end technologies like Angular, React, Webpack, HTML5, CSS3/Sass, JavaScript, Lottie Animations, JSON. Can work equally well in highly collaborative settings as well as those with little direction. Praised as diligent by my peers, I can be relied upon to help your company achieve its goals",
+    "education": [
+      {
+        "awards": ["Summa Cum Laude", "Valedictorian Candidate"],
+        "degree": "Bachelor of Science (B.S.) Computer Information Technology (May 2019)",
+        "gpa": "4.0",
+        "location": "Kerrville, Tx",
+        "school": "Schreiner University"
+      },
+      {
+        "degree": "Associate in Science (A.S.) Programming Certificate (Undergraduate) (June 2016)",
+        "gpa": "4.0",
+        "location": "Online",
+        "relevant": [
+          "Programming in Html5 With JavaScript",
+          "Windows Application Development Using Html5 And JavaScript"
+        ],
+        "school": "University of Phoenix"
+      }
+    ],
+    "experience": [
+      {
+        "bullets": [
+          "Involved in developing UI pages using Angular and React.",
+          "Worked in a highly collaborative agile team environment.",
+          "Conducted training with junior personnel and clients.",
+          "Successfully optimized web applications for performance and scalability, resulting in faster load times and enhanced responsiveness.",
+          "Integrated with backend APIs and effectively utilized data from RESTful services to enhance application functionality"
+        ],
+        "business": "MediaSourcery, November 2020 – Present",
+        "title": "SENIOR FRONTEND DEVELOPER"
+      },
+      {
+        "bullets": [
+          "Analyze user needs to determine technical requirements.",
+          "Create designs, concepts, and sample layouts based on knowledge of layout principles and esthetic design concepts.",
+          "Design, build, or maintain web sites, using authoring or scripting languages, content creation tools, management tools, and digital media.",
+          "Conduct trial runs of programs and software applications to be sure they will produce the desired information and that the instructions are correct."
+        ],
+        "business": "Spriteful LLC, May 2018 – 2020",
+        "title": "OWNER OPERATOR / PWA BUILDER"
+      },
+      {
+        "bullets": [
+          "Streamline data entry to cut entry time by over 75% with VBA in Microsoft Excel.",
+          "Train other staff members to perform work activities, such as using computer applications.",
+          "Design, build, or maintain web sites, using authoring or scripting languages, content creation tools, management tools, and digital media.",
+          "Conduct trial runs of programs and software applications to be sure they will produce the desired information and that the instructions are correct."
+        ],
+        "business": "Andiamo Services LLC, August 2013 – August 2016",
+        "title": "OFFICE CLERK"
+      },
+      {
+        "bullets": [
+          "Test and troubleshoot instruments, components, and assemblies.",
+          "Keep records of maintenance and repair work.",
+          "Adjust, repair, or replace malfunctions components."
+        ],
+        "business": "United States Navy, August 2002 – May 2006",
+        "title": "Aviation Electrician"
+      }
+    ]
+  },
+  {
+    "todos": [
+      {
+        "todo": "Modernize looks (work in progress)",
+        "done": false
+      },
+      {
+        "todo": "app.component: make last clicked based on previous windows index instead of Boolean",
+        "done": false
+      },
+      { "todo": "desktop.icon: make my own desktop icons", "done": false },
+      {
+        "todo": "taskbar.component: make taskbar on top of everything",
+        "done": true
+      },
+      {
+        "todo": "window.component: performance on phone is an issue",
+        "done": true
+      },
+      {
+        "todo": "window.component: remove code pertainig to trying to contain window movement",
+        "done": false
+      },
+      {
+        "todo": "Fix issue with time sync bogging down website (disabled for now)",
+        "done": true
+      },
+      { "todo": "Grid resume for better large screen viewing", "done": false },
+      { "todo": "Finish resume wording", "done": false },
+      {
+        "todo": "Work on wording for portfolio pages and add more",
+        "done": false
+      },
+      {
+        "todo": "Make transition between switching icons/animation",
+        "done": false
+      },
+      { "todo": "Make favicon", "done": true }
+    ],
+    "animation": "readme",
+    "name": "readme",
+    "viewer": "doc",
+    "paragraph": "Welcome to my web developer portfolio website! I am thrilled to have the opportunity to showcase my skills, expertise, and passion for web development. Throughout my journey as a web developer, I have honed my abilities in various programming languages, including HTML, CSS, JavaScript, and several frameworks like React and Angular. From crafting responsive and mobile-friendly designs to optimizing website performance and implementing efficient algorithms, I take pride in delivering high-quality solutions that meet both user and client expectations."
+  }
+]

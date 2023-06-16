@@ -1,51 +1,87 @@
-<div class="doc-content"  [ngStyle]="{'font-size':width > 800 ? 20+'px' : 14+'px' }">
+<div
+  class="doc-content"
+  [ngStyle]="{
+    'font-size': width > 800 ? 20 + 'px' : 14 + 'px',
+    color: os === 'mac' ? 'white' : 'black'
+  }"
+>
+  <div class="img-wrapper">
+    <img
+      *ngIf="project.src"
+      src="{{ project.src }}"
+      draggable="false"
+      [ngStyle]="{ 'max-height': width > 800 ? 256 + 'px' : 192 + 'px' }"
+    />
+  </div>
 
-	<div class="img-wrapper">
-		<img *ngIf="project.src" 
-					src="{{project.src}}" 
-					draggable="false"
-					[ngStyle]="{'max-height':width > 800 ? 256+'px' : 192+'px' }">
-	</div>
+  <p class="main-paragraph">{{ project.paragraph }}</p>
 
-	<p class="main-paragraph">{{project.paragraph}}</p>
-	
-	<div *ngIf="project.todos">
-		<p class="todo-title">Todo</p>
-		<ul *ngFor="let item of project.todos">
-			<li [ngStyle]="{'text-decoration': item.done ? 'line-through' : '' }">{{item.todo}}</li>
-		</ul>
-	</div>
+  <div *ngIf="project.todos">
+    <p class="todo-title">Todo</p>
+    <ul *ngFor="let item of project.todos">
+      <li [ngStyle]="{ 'text-decoration': item.done ? 'line-through' : '' }">
+        {{ item.todo }}
+      </li>
+    </ul>
+  </div>
 
-	<div *ngIf="project.education" >
-		<h1>Education</h1>
-		<div class="school-grid">
-			<div class="school-wrapper" *ngFor="let item of project.education"> 
-				<div class="bold">{{item.school}}</div>
-				<div class="bold">GPA {{item.gpa}}</div>
-				<div class="smaller section"  [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.location}}</div>
-				<div class="smaller section" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.degree}}</div>
-				
-				<div *ngIf="item.awards">
-					Awards
-					<div class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{item.awards}}</div>
-				</div>
+  <div *ngIf="project.education">
+    <h1>Education</h1>
+    <div class="school-grid">
+      <div class="school-wrapper" *ngFor="let item of project.education">
+        <div class="bold">{{ item.school }}</div>
+        <div class="bold">GPA {{ item.gpa }}</div>
+        <div
+          class="smaller section"
+          [ngStyle]="{ 'font-size': width > 800 ? 18 + 'px' : 14 + 'px' }"
+        >
+          {{ item.location }}
+        </div>
+        <div
+          class="smaller section"
+          [ngStyle]="{ 'font-size': width > 800 ? 18 + 'px' : 14 + 'px' }"
+        >
+          {{ item.degree }}
+        </div>
 
-			</div>
-		</div>
-	</div>
+        <div *ngIf="item.awards">
+          Awards
+          <div
+            class="smaller"
+            [ngStyle]="{ 'font-size': width > 800 ? 18 + 'px' : 14 + 'px' }"
+          >
+            {{ item.awards }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<div *ngIf="project.experience" >
-		<h1>experience</h1>
-		<div class="school-grid">
-			<div class="school-wrapper" *ngFor="let item of project.experience"> 
-				<div class="bold">{{item.title}}</div>
-				<div class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }" >{{item.business}}</div>
-				<ul>
-					<li *ngFor="let bullet of item.bullets" class="smaller" [ngStyle]="{'font-size':width > 800 ? 18+'px' : 14+'px' }">{{bullet}} </li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<p *ngIf="project.link">Link to {{project.name}} <a href="{{project.link}}" target="_blank">here</a> </p>
-	
+  <div *ngIf="project.experience">
+    <h1>Experience</h1>
+    <div class="school-grid">
+      <div class="school-wrapper" *ngFor="let item of project.experience">
+        <div class="bold">{{ item.title }}</div>
+        <div
+          class="smaller"
+          [ngStyle]="{ 'font-size': width > 800 ? 18 + 'px' : 14 + 'px' }"
+        >
+          {{ item.business }}
+        </div>
+        <ul>
+          <li
+            *ngFor="let bullet of item.bullets"
+            class="smaller"
+            [ngStyle]="{ 'font-size': width > 800 ? 18 + 'px' : 14 + 'px' }"
+          >
+            {{ bullet }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p *ngIf="project.link">
+    Link to {{ project.name }}
+    <a href="{{ project.link }}" target="_blank">here</a>
+  </p>
 </div>

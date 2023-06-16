@@ -1,30 +1,32 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProjectService } from '../../core/project.service';
+import { OsService } from 'app/shared/services/os.service';
 
 @Component({
   selector: 'app-pic-view',
   templateUrl: './pic-view.component.html',
-  styleUrls: ['./pic-view.component.sass']
+  styleUrls: ['./pic-view.component.sass'],
 })
-
-export class PicViewComponent  {
-
+export class PicViewComponent {
   @Input() project: any;
+  os: string = '';
+  constructor(
+    private projectService: ProjectService,
+    private osService: OsService
+  ) {}
 
-  constructor(private projectService: ProjectService) { }
-  
-  // emits up to app component to change selected project 
-  arrowClicked(operator: string) {
-    const {index} = this.project;
-    const getIndex  = () => {
-      if (operator === '+' ) {
-        return index + 1;
-      }
-      return index - 1;
-    }
-    const payload = {...this.project, index: getIndex()};
-    this.projectService.updateProject(payload);
+  ngOnInit() {
+    // this.os = this.osService.getOs();
+    // used to hide all other cards in html
+    this.osService.subscribe((data) => {
+      this.os = data;
+    });
   }
 
-
+  // emits up to app component to change selected project
+  arrowClicked(operator: number) {
+    const { index } = this.project;
+    const payload = { ...this.project, index: index + operator };
+    this.projectService.updateProject(payload);
+  }
 }

@@ -1,31 +1,59 @@
-
-<div class="content-wrapper" [ngStyle]="{'height': screenHeight + 'px'}" (window:resize)="onResize($event)"> 
+<div
+  class="content-wrapper"
+  [ngStyle]="{ height: screenHeight + 'px' }"
+  (window:resize)="onResize($event)"
+>
   <div class="content">
-    <app-desktop-icon 
-                      (iconClicked)="openDesktopFolder($event)">
+    <app-lottie
+      *ngIf="os === 'windows'; else mac"
+      class="bgLottie"
+      [options]="bgLottieOptions"
+      [animation]="'clouds'"
+    ></app-lottie>
+    <ng-template #mac>
+      <app-lottie
+        class="bgLottie"
+        [ngStyle]="{ bottom: 0 }"
+        [options]="macBgLottieOptions"
+        [animation]="'meteor'"
+      ></app-lottie>
+    </ng-template>
+    <app-desktop-icon
+      *ngIf="os === 'windows'"
+      (iconClicked)="openDesktopFolder($event)"
+    >
     </app-desktop-icon>
-    
-    <app-window *ngFor="let item of openFiles"
-                [project]="item"
-                [width]="item.width" 
-                [height]="item.height" 
-                [left]="item.left" 
-                [top]="item.top"
-                (closed)="windowClosed($event)"
-                (click)="setLastClicked(item)">
+
+    <app-window
+      *ngFor="let item of openFiles"
+      [project]="item"
+      (closed)="windowClosed($event)"
+      (click)="setLastClicked(item)"
+    >
     </app-window>
   </div>
-   
-  <app-taskbar [animations]="animations" 
-               [icons]="icons" 
-               [openFiles]="openFiles"
-               [portfolio]="portfolio"
-               (selected)="openFile($event)"
-               (maximize)="maximizeWindow($event)">
+
+  <app-taskbar
+    *ngIf="os === 'windows'"
+    [animations]="animations"
+    [icons]="icons"
+    [openFiles]="openFiles"
+    [portfolio]="portfolio"
+    (selected)="openFile($event)"
+    (maximize)="maximizeWindow($event)"
+  >
   </app-taskbar>
 
+  <app-os-toggle></app-os-toggle>
+
+  <app-mac-taskbar
+    *ngIf="os === 'mac'"
+    [openFiles]="openFiles"
+    (maximize)="maximizeWindow($event)"
+    (iconClicked)="openDesktopFolder($event)"
+  ></app-mac-taskbar>
 </div>
 
-
+<!-- <app-start-up *ngIf="os === 'windows'"> </app-start-up> -->
 
 <router-outlet></router-outlet>

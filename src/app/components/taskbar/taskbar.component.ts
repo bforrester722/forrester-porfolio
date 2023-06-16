@@ -1,17 +1,26 @@
-import { Component, OnInit, Output, Input, EventEmitter, HostListener } from '@angular/core';
-import { wait }        from '../../helpers/helper';
+import {
+  Component,
+  OnInit,
+  Output,
+  Input,
+  EventEmitter,
+  HostListener,
+} from '@angular/core';
+import { wait } from '../../helpers/helper';
 import { DataService } from '../../core/data.service';
-import { IStartMenu, ISecondMenu, IIcons, IAnimation } from  '../../shared/interfaces';
+import {
+  IStartMenu,
+  ISecondMenu,
+  IIcons,
+  IAnimation,
+} from '../../shared/interfaces';
 
 @Component({
   selector: 'app-taskbar',
   templateUrl: './taskbar.component.html',
   styleUrls: ['./taskbar.component.sass'],
 })
-
-
 export class TaskbarComponent implements OnInit {
-
   @Input() icons: IIcons[] = [];
   @Input() animations: IAnimation[] = [];
   @Input() openFiles: any;
@@ -20,26 +29,25 @@ export class TaskbarComponent implements OnInit {
   @Output() maximize: EventEmitter<string> = new EventEmitter<string>();
   appTime: string = '';
   appDate: string = '';
-  cached: string =  '';
+  cached: string = '';
   openStart: boolean = false;
   openSecond: boolean = false;
   secondMenu: ISecondMenu[] = [];
   startMenuItems: IStartMenu[] = [];
 
-  
-   // closes start menus if clicked outside of them
+  // closes start menus if clicked outside of them
   @HostListener('window:click', ['$event'])
-    handleClick(event: any) {
-      const close = event.target.classList.contains('dont-close')
-      if (!close) {
-        this.closeMenus();
-      }
+  handleClick(event: any) {
+    const close = event.target.classList.contains('dont-close');
+    if (!close) {
+      this.closeMenus();
+    }
   }
 
   // constructor(private dataService: DataService, ) {}
-  constructor(private dataService: DataService) { 
+  constructor(private dataService: DataService) {
     // updates date and time every second
-    setInterval(() => {         
+    setInterval(() => {
       this.setDate();
     }, 1000);
   }
@@ -55,19 +63,29 @@ export class TaskbarComponent implements OnInit {
   // sets width on open tabs based on number of files openFiles
   // adds styles to active tab
   styleTab(project: any): Object {
-    const width = (window.innerWidth - (200 + (22 * this.openFiles.length))) / this.openFiles.length;
+    const width =
+      (window.innerWidth - (200 + 22 * this.openFiles.length)) /
+      this.openFiles.length;
     const openWidth = width > 200 ? 200 : width;
-    if (project.lastClicked ){
-      return {width: `${openWidth}px`, background: '#d3d3d3', boxShadow: 'inset 2px 2px 2px black, inset -2px -2px 2px white'};
+    if (project.lastClicked) {
+      return {
+        width: `${openWidth}px`,
+        background: '#d3d3d3',
+        boxShadow: 'inset 2px 2px 2px black, inset -2px -2px 2px white',
+      };
     }
-    return {width: `${openWidth}px`};
-   }
+    return { width: `${openWidth}px` };
+  }
 
   // sets date and time for taskbar
   setDate() {
-    let  date      = new Date();
-    this.appDate = (date.getMonth() + 1) + "/" +date.getDate() + "/" + date.getFullYear();
-    this.appTime = date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+    let date = new Date();
+    this.appDate =
+      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+    this.appTime = date.toLocaleTimeString(navigator.language, {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   }
 
   // if start menu closed open it else close all menus
@@ -92,17 +110,15 @@ export class TaskbarComponent implements OnInit {
   }
 
   // Closes previous second menu if open then open second Menu
-  async startMenuItemClicked(name:string, option:string) {
+  async startMenuItemClicked(name: string) {
     if (this.cached !== name) {
       this.openSecond = false;
       await wait(250);
     }
     this.cached = name;
-    if (option === "more") {
-      this.openSecond = !this.openSecond;
-      this.secondMenu = this.getSecondMenuItems(name);
-    }
-  
+
+    this.openSecond = !this.openSecond;
+    this.secondMenu = this.getSecondMenuItems(name);
   }
 
   // used to maximize window when tab clicked
@@ -115,13 +131,11 @@ export class TaskbarComponent implements OnInit {
     this.closeMenus();
     this.selected.emit(project);
   }
-  
-  // closes menus 
+
+  // closes menus
   async closeMenus() {
     this.openSecond = false;
     await wait(150);
-    this.openStart  = false;
+    this.openStart = false;
   }
-
-
 }

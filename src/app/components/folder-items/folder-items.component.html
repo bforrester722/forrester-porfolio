@@ -1,13 +1,24 @@
+<div class="folder-icon-grid">
+  <div
+    *ngFor="let item of files"
+    class="folder-icon"
+    [ngStyle]="{
+      'background-color': item.bg && os === 'windows' ? 'black' : ''
+    }"
+    (click)="folderIconClicked(item)"
+  >
+    <div class="img-wrapper">
+      <img *ngIf="item.src" src="{{ item.src }}" draggable="false" />
 
-<div class="folder-icon-grid" >
-	<div *ngFor="let item of files" 
-			 class="folder-icon"
-			 [ngStyle]="{'background-color': item.bg ? 'black' : 'white'}"
-			 (click)="folderIconClicked(item)">
-		<div class="img-wrapper">
-			<img *ngIf="item.src" src="{{item.src}}" draggable="false">
-			<app-lottie *ngIf="!item.src" [animation]="item.name" [paused]="paused" draggable="false"></app-lottie>
-		</div>
-		<div class="name">{{item.name }}</div>
-	</div>
+      <app-lottie
+        *ngIf="!item.src"
+        [animation]="item.name"
+        [options]="{ paused: true }"
+        draggable="false"
+      ></app-lottie>
+    </div>
+    <div class="name" [style.color]="os === 'mac' ? 'white' : 'black'">
+      {{ item.name }}
+    </div>
+  </div>
 </div>
