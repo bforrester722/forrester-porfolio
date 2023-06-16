@@ -1,7 +1,7 @@
 <div class="content">
   <mat-icon
     class="left-arrow"
-    [ngStyle]="{ color: project.bg ? 'white' : 'black' }"
+    [ngStyle]="{ color: project.bg || os === 'mac' ? 'white' : 'black' }"
     (click)="arrowClicked(-1)"
   >
     keyboard_arrow_left
@@ -16,7 +16,7 @@
 
   <mat-icon
     class="right-arrow"
-    [ngStyle]="{ color: project.bg ? 'white' : 'black' }"
+    [ngStyle]="{ color: project.bg || os === 'mac' ? 'white' : 'black' }"
     (click)="arrowClicked(1)"
   >
     chevron_right</mat-icon

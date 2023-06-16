@@ -28,6 +28,8 @@ import { PicViewComponent } from './components/pic-view/pic-view.component';
 import { StartUpComponent } from './components/start-up/start-up.component';
 import { TaskbarComponent } from './components/taskbar/taskbar.component';
 import { WindowComponent } from './components/window/window.component';
+import { MacTaskbarIconComponent } from './components/mac-taskbar-icon/mac-taskbar-icon.component';
+
 require('default-passive-events');
 // my services
 import { OsService } from './shared/services/os.service';
@@ -47,6 +49,7 @@ passiveSupport({});
     WindowComponent,
     MacTaskbarComponent,
     OsToggleComponent,
+    MacTaskbarIconComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

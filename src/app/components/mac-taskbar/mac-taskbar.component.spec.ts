@@ -4,6 +4,7 @@ import { DataService } from '../../core';
 import { MacTaskbarComponent } from './mac-taskbar.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../../../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('MacTaskbarComponent', () => {
   let component: MacTaskbarComponent;
   let fixture: ComponentFixture<MacTaskbarComponent>;
@@ -13,6 +14,7 @@ describe('MacTaskbarComponent', () => {
       declarations: [MacTaskbarComponent],
       imports: [
         HttpClientTestingModule,
+        BrowserAnimationsModule,
         AngularFireModule.initializeApp(environment.firebase),
       ],
       providers: [DataService],

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ProjectService } from '../../core/project.service';
+import { OsService } from 'app/shared/services/os.service';
 
 @Component({
   selector: 'app-pic-view',
@@ -8,8 +9,19 @@ import { ProjectService } from '../../core/project.service';
 })
 export class PicViewComponent {
   @Input() project: any;
+  os: string = '';
+  constructor(
+    private projectService: ProjectService,
+    private osService: OsService
+  ) {}
 
-  constructor(private projectService: ProjectService) {}
+  ngOnInit() {
+    // this.os = this.osService.getOs();
+    // used to hide all other cards in html
+    this.osService.subscribe((data) => {
+      this.os = data;
+    });
+  }
 
   // emits up to app component to change selected project
   arrowClicked(operator: number) {

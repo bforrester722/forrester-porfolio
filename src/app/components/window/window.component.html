@@ -8,17 +8,17 @@
     'translate3d(' + project.left + 'px,' + project.top + 'px,' + '0px)'
   "
   [ngStyle]="{ 'z-index': project.lastClicked ? 2 : 1 }"
+  [ngClass]="{ blur: os === 'mac' }"
 >
-  <div class="toolbar">
-    <div
-      #drag
-      class="drag"
-      [class.active]="status === 1 || status === 2"
-      (touchstart)="setTouchStatus($event, 2)"
-      (mousedown)="setStatus($event, 2)"
-      (window:mouseup)="setStatus($event, 0)"
-      (window:touchend)="setTouchStatus($event, 0)"
-    >
+  <div
+    (touchstart)="setTouchStatus($event, 2)"
+    (mousedown)="setStatus($event, 2)"
+    (window:mouseup)="setStatus($event, 0)"
+    (window:touchend)="setTouchStatus($event, 0)"
+    class="toolbar"
+    [ngClass]="os === 'mac' ? 'macToolbar' : ''"
+  >
+    <div #drag class="drag" [class.active]="status === 1 || status === 2">
       <div class="title" *ngIf="project.viewer === 'pic'">
         {{ project.name }} - Pic-U-View
       </div>
@@ -30,15 +30,30 @@
       </div>
     </div>
     <div class="icons-wrapper">
-      <mat-icon (click)="minimizeClicked()">minimize</mat-icon>
-      <!-- <mat-icon (click)="maximizeClicked()" [ngStyle]="{'display': screenWidth < 500  ? 'none' : ''}">open_in_new</mat-icon> -->
-      <mat-icon (click)="maximizeClicked()">open_in_new</mat-icon>
-      <mat-icon (click)="closeClicked()">close</mat-icon>
+      <span *ngIf="os === 'mac'; else windows" class="macIcons">
+        <mat-icon [ngStyle]="{ color: '#ff645b' }" (click)="closeClicked()"
+          >cancel</mat-icon
+        >
+        <mat-icon [ngStyle]="{ color: '#ffbe2f' }" (click)="minimizeClicked()"
+          >remove_circle</mat-icon
+        >
+        <mat-icon [ngStyle]="{ color: '#29ce42' }" (click)="maximizeClicked()"
+          >swap_vertical_circle</mat-icon
+        ></span
+      >
+      <ng-template #windows>
+        <span class="windowsIcons">
+          <mat-icon (click)="minimizeClicked()">minimize</mat-icon>
+          <mat-icon (click)="maximizeClicked()">open_in_new</mat-icon>
+          <mat-icon (click)="closeClicked()">close</mat-icon>
+        </span>
+      </ng-template>
     </div>
   </div>
 
   <div
     class="content"
+    [ngClass]="{ macScroll: os === 'mac' }"
     [ngStyle]="{
       overflow:
         project.type || project.items?.length || project.viewer === 'doc'

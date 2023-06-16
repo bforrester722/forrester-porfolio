@@ -70,6 +70,7 @@ export interface IFolderItem {
 export interface IOpenFile {
   height: number;
   index: number;
+  uuid: string;
   items?: any;
   bg?: string;
   lastClicked: boolean;

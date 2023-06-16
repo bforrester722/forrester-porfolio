@@ -14,7 +14,7 @@
       <app-lottie
         class="bgLottie"
         [ngStyle]="{ bottom: 0 }"
-        [options]=""
+        [options]="macBgLottieOptions"
         [animation]="'meteor'"
       ></app-lottie>
     </ng-template>
@@ -54,6 +54,6 @@
   ></app-mac-taskbar>
 </div>
 
-<app-start-up *ngIf="os === 'windows'"> </app-start-up>
+<!-- <app-start-up *ngIf="os === 'windows'"> </app-start-up> -->
 
 <router-outlet></router-outlet>
