@@ -1,6 +1,9 @@
 <div
   class="doc-content"
-  [ngStyle]="{ 'font-size': width > 800 ? 20 + 'px' : 14 + 'px' }"
+  [ngStyle]="{
+    'font-size': width > 800 ? 20 + 'px' : 14 + 'px',
+    color: os === 'mac' ? 'white' : 'black'
+  }"
 >
   <div class="img-wrapper">
     <img

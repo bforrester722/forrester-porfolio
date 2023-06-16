@@ -1,14 +1,31 @@
 <div class="taskbar">
   <div class="blur">
-    <div class="desktop-icon" *ngFor="let item of icons">
-      <img
-        [src]="'assets/imgs/' + item.name + '.svg'"
-        draggable="false"
-        class="animate"
-        [ngStyle]="{ 'max-height': '96px' }"
-        [ngClass]="isOpen === item.name ? 'bounce' : ''"
-        (click)="desktopIconClicked(item)"
-      />
+    <ng-container *ngFor="let item of icons">
+      <div class="desktop-icon" [ngClass]="item.open ? 'selected' : ''">
+        <img
+          [src]="'assets/imgs/' + item.name + '.svg'"
+          draggable="false"
+          class="animate"
+          [ngClass]="animate === item.name ? 'bounce' : ''"
+          (click)="desktopIconClicked(item)"
+        />
+      </div>
+    </ng-container>
+
+    <div *ngIf="opened.length" [@folderInOutAnimation]>
+      <div class="desktop-icon selected" (click)="openedClicked()">
+        <img
+          *ngIf="opened.length"
+          class="animate folder"
+          src="assets/imgs/folder.svg"
+        />
+      </div>
+      <app-mac-taskbar-icon
+        #taskbarIcon
+        [openFiles]="opened"
+        [showOpened]="showOpened"
+        (maximize)="openedIconClicked($event)"
+      ></app-mac-taskbar-icon>
     </div>
   </div>
 </div>

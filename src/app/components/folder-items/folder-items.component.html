@@ -2,7 +2,9 @@
   <div
     *ngFor="let item of files"
     class="folder-icon"
-    [ngStyle]="{ 'background-color': item.bg ? 'black' : 'white' }"
+    [ngStyle]="{
+      'background-color': item.bg && os === 'windows' ? 'black' : ''
+    }"
     (click)="folderIconClicked(item)"
   >
     <div class="img-wrapper">
@@ -15,6 +17,8 @@
         draggable="false"
       ></app-lottie>
     </div>
-    <div class="name">{{ item.name }}</div>
+    <div class="name" [style.color]="os === 'mac' ? 'white' : 'black'">
+      {{ item.name }}
+    </div>
   </div>
 </div>

@@ -18,6 +18,7 @@ import { OsService } from './shared/services/os.service';
 // interfaces
 import { IAnimation, IIcons, IPortfolio, IOpenFile } from './shared/interfaces';
 import { wait } from './helpers/helper';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-component',
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
   animations: IAnimation[] = [];
   openFiles: Array<IOpenFile> = [];
   portfolio: IPortfolio[] = [];
+  macBgLottieOptions: any = {};
   bgLottieOptions: any = {};
   os: string;
 
@@ -91,15 +93,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // fixes address bar on phones making 100vh not work correctly
     this.screenHeight = window.innerHeight;
-    this.responsive.observe(Breakpoints.XSmall).subscribe((result) => {
-      this.bgLottieOptions = {
-        ...this.bgLottieOptions,
+
+    this.responsive.observe([Breakpoints.XSmall]).subscribe((result) => {
+      this.macBgLottieOptions = {
+        ...this.macBgLottieOptions,
         paused: result.matches,
       };
     });
 
     this.responsive.observe(Breakpoints.XLarge).subscribe((result) => {
       this.bgLottieOptions = {
+        ...this.macBgLottieOptions,
         style: result.matches ? 'height: auto' : 'width: max-content ',
       };
     });
@@ -136,6 +140,7 @@ export class AppComponent implements OnInit, OnDestroy {
       ...type[newIndex],
       lastClicked: true,
     });
+    this.openFiles = [...this.openFiles];
   }
 
   // emitted from taskbar to maximize window
@@ -173,9 +178,11 @@ export class AppComponent implements OnInit, OnDestroy {
     const updated = {
       ...data,
       ...this.getRandom(),
+      uuid: uuid(),
       openIndex: this.openFiles.length,
     };
-    this.openFiles.push(updated);
+    // this.openFiles.push(updated);
+    this.openFiles = [...this.openFiles, updated];
     this.setLastClicked(updated);
   }
 
@@ -194,10 +201,11 @@ export class AppComponent implements OnInit, OnDestroy {
   // removes file from openFiles when window closed
   windowClosed(project: any) {
     this.openFiles.splice(project.openIndex, 1);
-    this.openFiles.map((file, index) => {
+    const newOpen = this.openFiles.map((file, index) => {
       file.openIndex = index;
       return file;
     });
+    this.openFiles = [...newOpen];
   }
 
   // opens folder and passes in data
@@ -217,10 +225,12 @@ export class AppComponent implements OnInit, OnDestroy {
       lastClicked: true,
       items,
       openIndex: this.openFiles.length,
+      uuid: uuid(),
       ...item,
       ...this.getRandom(),
     };
-    this.openFiles.push(builtItem);
+
+    this.openFiles = [...this.openFiles, builtItem];
     this.setLastClicked(builtItem);
   }
 

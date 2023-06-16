@@ -1,0 +1,19 @@
+<div *ngIf="animateIcons" [@inOutAnimation]>
+  <div class="fab-container">
+    <div
+      *ngFor="let item of openFiles"
+      class="animate"
+      (click)="openedIconClicked(item)"
+    >
+      <span>{{ item.name }}</span>
+      <img *ngIf="item.src" [src]="item.src" class="img" draggable="false" />
+      <app-lottie
+        *ngIf="!item.src"
+        class="img"
+        [animation]="item.name"
+        [options]="{ paused: true }"
+        draggable="false"
+      ></app-lottie>
+    </div>
+  </div>
+</div>
