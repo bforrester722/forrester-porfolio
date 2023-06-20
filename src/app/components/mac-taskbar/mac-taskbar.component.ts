@@ -4,15 +4,11 @@ import {
   HostListener,
   Input,
   Output,
-  SimpleChanges,
   ElementRef,
-  ViewChild,
 } from '@angular/core';
 import {
   animate,
   keyframes,
-  query,
-  stagger,
   style,
   transition,
   trigger,
@@ -21,6 +17,7 @@ import { DataService } from '../../core/data.service';
 import { IDesktopIcon } from '../../shared/interfaces';
 import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 import { wait } from 'app/helpers/helper';
+import { OpenFilesService } from 'app/shared/services/open-files.service';
 
 interface Data extends IDesktopIcon {
   open?: boolean;
@@ -57,7 +54,6 @@ interface Data extends IDesktopIcon {
   ],
 })
 export class MacTaskbarComponent {
-  @Input() openFiles: any;
   @Output() maximize: EventEmitter<string> = new EventEmitter<string>();
   @Output() iconClicked: EventEmitter<IDesktopIcon> =
     new EventEmitter<IDesktopIcon>();
@@ -72,19 +68,26 @@ export class MacTaskbarComponent {
   icons: Data[] = [];
   animate = '';
   boxOptions: any = { paused: true, loop: false };
+  openFiles: any = [];
   opened: any = [];
   showOpened: boolean = false;
 
   constructor(
     private dataService: DataService,
     private elementRef: ElementRef,
-    private analytics: AngularFireAnalytics
+    private analytics: AngularFireAnalytics,
+    private openFilesService: OpenFilesService
   ) {}
 
   ngOnInit(): void {
     // gets desktop icons from desktop.json
     this.dataService.getDesktopIcons().subscribe((desktop: IDesktopIcon[]) => {
       this.icons = desktop;
+    });
+
+    this.openFilesService.subscribe((data) => {
+      this.openFiles = data;
+      this.checkPicOpen(data);
     });
   }
 
@@ -98,13 +101,15 @@ export class MacTaskbarComponent {
         ? (this.icons[index] = { ...this.icons[index], open: true })
         : (this.icons[index] = { ...this.icons[index], open: false });
     });
-
-    this.checkPicOpen(changes);
   }
-
-  checkPicOpen(opened: any) {
-    const changes = opened?.openFiles?.currentValue || [];
-    const viewer = changes?.filter((change: any) => change?.viewer === 'pic');
+  checkPicOpen(data: any) {
+    this.icons.forEach((icon, index) => {
+      const found = data.find((file: any) => file.name === icon.name);
+      found
+        ? (this.icons[index] = { ...this.icons[index], open: true })
+        : (this.icons[index] = { ...this.icons[index], open: false });
+    });
+    const viewer = data?.filter((change: any) => change?.viewer === 'pic');
     this.opened = viewer;
   }
 
@@ -119,12 +124,13 @@ export class MacTaskbarComponent {
 
   async desktopIconClicked(item: any) {
     this.analytics.logEvent('custom_event', { desktopIconClicked: item.name });
-    this.maximize.emit(item);
+    const newItem = this.openFiles.find((file: any) => file.name === item.name);
+    this.maximize.emit(newItem ? newItem : item);
 
     if (this.animate) return;
     this.animate = item.name;
 
-    this.iconClicked.emit(item);
+    this.iconClicked.emit(newItem ? newItem : item);
     await wait(700);
 
     this.animate = '';

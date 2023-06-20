@@ -32,6 +32,7 @@ export class TaskbarComponent implements OnInit {
   cached: string = '';
   openStart: boolean = false;
   openSecond: boolean = false;
+  openWidth: number = 200;
   secondMenu: ISecondMenu[] = [];
   startMenuItems: IStartMenu[] = [];
 
@@ -58,6 +59,16 @@ export class TaskbarComponent implements OnInit {
     this.dataService.getStartMenu().subscribe((start: IStartMenu[]) => {
       this.startMenuItems = start;
     });
+  }
+
+  ngOnChanges(changes: any) {
+    if (changes.openFiles) {
+      const width =
+        (window.innerWidth - (200 + 22 * this.openFiles.length)) /
+        this.openFiles.length;
+
+      this.openWidth = width > 200 ? 200 : width;
+    }
   }
 
   // sets width on open tabs based on number of files openFiles

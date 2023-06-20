@@ -8,11 +8,19 @@
   </mat-icon>
 
   <img *ngIf="project.src" src="{{ project.src }}" draggable="false" />
+
   <app-lottie
     *ngIf="!project.src"
     [animation]="project.name"
     draggable="false"
   ></app-lottie>
+  <div
+    *ngIf="project.src"
+    class="name"
+    [style.color]="os === 'mac' ? 'white' : 'black'"
+  >
+    <div [style.fontSize]="'14px'">({{ project.size }})</div>
+  </div>
 
   <mat-icon
     class="right-arrow"

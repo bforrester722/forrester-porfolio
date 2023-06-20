@@ -46,16 +46,15 @@ export class WindowComponent implements AfterViewInit {
     if (value) {
       this._project = value;
 
-      this.loadBackground();
       return;
     }
   }
 
   // sets backgroundColor
   async loadBackground() {
-    await wait(10);
     const { bg } = this.project;
-    if (!this.box || this.os === 'mac') {
+    if (!this.box) return;
+    if (this.os === 'mac') {
       this.box.nativeElement.style.backgroundColor = '';
       return;
     }
@@ -72,6 +71,7 @@ export class WindowComponent implements AfterViewInit {
   }
   ngAfterViewInit() {
     this.loadBox();
+    this.loadBackground();
   }
 
   // sets window position
@@ -219,7 +219,7 @@ export class WindowComponent implements AfterViewInit {
 
         return;
       }
-      console.log('what');
+
       // for phone size opens at full width and height so no cached
       this.updateSize(this.project.width / 2, this.project.height / 2, 32, 16);
       return;

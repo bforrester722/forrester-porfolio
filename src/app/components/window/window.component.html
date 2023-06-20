@@ -7,7 +7,7 @@
   [style.transform]="
     'translate3d(' + project.left + 'px,' + project.top + 'px,' + '0px)'
   "
-  [ngStyle]="{ 'z-index': project.lastClicked ? 2 : 1 }"
+  [ngStyle]="{ 'z-index': project.openIndex }"
   [ngClass]="{ blur: os === 'mac' }"
 >
   <div
