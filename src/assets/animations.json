@@ -2,75 +2,92 @@
   {
     "name": "animations",
     "viewer": "pic",
+    "type": "animation",
     "bg": "black"
   },
   {
     "name": "box",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "meteor",
     "viewer": "pic",
+    "type": "animation",
     "bg": "black"
   },
 
   {
     "name": "me",
     "viewer": "pic",
+    "type": "animation",
     "bg": "black"
   },
   {
     "name": "readme",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "russ",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "vader",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "gameboy",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "gameboy_advance",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "linkable",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "offline",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "performance",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "responsive",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "security",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "third_party",
-    "viewer": "pic"
+    "viewer": "pic",
+    "type": "animation"
   },
   {
     "name": "react_demo",
     "viewer": "pic",
+    "type": "animation",
     "bg": "black"
   },
   {
     "name": "text_bubbles",
     "viewer": "pic",
+    "type": "animation",
     "bg": "black"
   }
 ]

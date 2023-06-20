@@ -87,9 +87,9 @@
       },
       {
         "todo": "app.component: make last clicked based on previous windows index instead of Boolean",
-        "done": false
+        "done": true
       },
-      { "todo": "desktop.icon: make my own desktop icons", "done": false },
+      { "todo": "desktop.icon: make my own desktop icons", "done": true },
       {
         "todo": "taskbar.component: make taskbar on top of everything",
         "done": true
@@ -100,14 +100,14 @@
       },
       {
         "todo": "window.component: remove code pertainig to trying to contain window movement",
-        "done": false
+        "done": true
       },
       {
         "todo": "Fix issue with time sync bogging down website (disabled for now)",
         "done": true
       },
       { "todo": "Grid resume for better large screen viewing", "done": false },
-      { "todo": "Finish resume wording", "done": false },
+      { "todo": "Finish resume wording", "done": true },
       {
         "todo": "Work on wording for portfolio pages and add more",
         "done": false
