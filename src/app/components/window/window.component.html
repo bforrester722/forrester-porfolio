@@ -18,6 +18,7 @@
     class="toolbar"
     [ngClass]="os === 'mac' ? 'macToolbar' : ''"
   >
+    <div *ngIf="os === 'mac'" [ngStyle]="{ width: '96px' }"></div>
     <div #drag class="drag" [class.active]="status === 1 || status === 2">
       <div class="title" *ngIf="project.viewer === 'pic'">
         {{ project.name }} - Pic-U-View
@@ -30,7 +31,7 @@
       </div>
     </div>
     <div class="icons-wrapper">
-      <span *ngIf="os === 'mac'; else windows" class="macIcons">
+      <span *ngIf="os === 'mac'; else windows" [ngStyle]="{ display: 'flex' }">
         <mat-icon [ngStyle]="{ color: '#ff645b' }" (click)="closeClicked()"
           >cancel</mat-icon
         >

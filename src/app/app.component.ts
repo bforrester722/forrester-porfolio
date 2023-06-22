@@ -4,7 +4,6 @@ import {
   OnDestroy,
   ViewChildren,
   QueryList,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
@@ -17,9 +16,18 @@ import { ProjectService } from './core/project.service';
 import { Subscription } from 'rxjs';
 import { OsService } from './shared/services/os.service';
 // interfaces
-import { IAnimation, IIcons, IPortfolio, IOpenFile } from './shared/interfaces';
+import {
+  IAnimation,
+  IIcons,
+  IPortfolio,
+  IOpenFile,
+  IDesktopIcon,
+  ISecondMenu,
+} from './shared/interfaces';
 import { wait } from './helpers/helper';
 import { OpenFilesService } from './shared/services/open-files.service';
+import animations from '../assets/animations.json';
+import portfolioJson from '../assets/portfolio.json';
 
 @Component({
   selector: 'app-component',
@@ -41,8 +49,8 @@ export class AppComponent implements OnInit, OnDestroy {
   animations: IAnimation[] = [];
   openFiles: Array<IOpenFile> = [];
   portfolio: IPortfolio[] = [];
-  macBgLottieOptions: any = {};
-  bgLottieOptions: any = {};
+  macBgLottieOptions: { paused: boolean; style: string };
+  bgLottieOptions: { paused: boolean; style: string };
   os: string;
 
   constructor(
@@ -76,29 +84,22 @@ export class AppComponent implements OnInit, OnDestroy {
           this.openFile(project);
         }
       });
-
-    // gets animation data from animations.json, sorts by name, and adds index
-    this.animationsSubscription = this.dataService
-      .getAnimations()
-      .subscribe((animations) => {
-        if (animations) {
-          const sorted = animations.sort((a, b) => (a.name > b.name ? 1 : -1));
-          this.animations = sorted.map((animation, index) => {
-            return { ...animation, index };
-          });
-        }
-      });
   }
 
   ngOnInit() {
+    const sorted = animations.sort((a, b) => (a.name > b.name ? 1 : -1));
+    this.animations = sorted.map((animation, index) => {
+      return { ...animation, index, type: 'animation', viewer: 'pic' };
+    });
+    // used to get portfolio json
+    this.portfolio = portfolioJson;
     // used to hide all other cards in html
     this.osService.subscribe((data) => {
       this.os = data;
     });
 
     this.openFilesService.subscribe((data) => {
-      this.openFiles = data;
-      console.log(data);
+      this.openFiles = [...data];
     });
 
     // fixes address bar on phones making 100vh not work correctly
@@ -124,21 +125,17 @@ export class AppComponent implements OnInit, OnDestroy {
         return { ...animation, index, viewer: 'pic' };
       });
     });
-    // used to get portfolio json
-    this.dataService.getPortfolio().subscribe((portfolio: any) => {
-      this.portfolio = portfolio;
-    });
   }
 
   // fixes address bar on phones making 100vh not work correctly
-  onResize(event: any) {
-    const { innerHeight } = event.target;
+  onResize(event: Event) {
+    const { innerHeight } = event.target as Window;
     this.screenHeight = innerHeight;
   }
 
   // emitted from taskbar to maximize window
-  maximizeWindow(project: any) {
-    const newProjectIndex: any = this.openFiles.findIndex(
+  maximizeWindow(project: IOpenFile) {
+    const newProjectIndex: number = this.openFiles.findIndex(
       (file) => file.uuid === project.uuid
     );
     if (newProjectIndex < 0) return;
@@ -147,30 +144,29 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   // push selected file to openFiles and add index for keeping track of file
-  openFile(data: any) {
-    this.openFilesService.addFile(data);
+  openFile(data: ISecondMenu) {
+    this.openFilesService.addFile({ ...data, os: this.os });
   }
 
   // sets lastClicked for making last selected viewer on top
-  setLastClicked(data: any) {
+  setLastClicked(data: IOpenFile) {
     this.openFilesService.updateLast(data);
   }
 
   // removes file from openFiles when window closed
-  windowClosed(project: any) {
+  windowClosed(project: IOpenFile) {
     this.openFilesService.removeFile(project);
   }
 
   // opens folder and passes in data
-  openDesktopFolder(item: any) {
+  openDesktopFolder(item: IDesktopIcon) {
     const alreadyOpen = this.openFiles.find((file) => file.name === item.name);
     if (alreadyOpen) {
-      this.openFilesService.addFile(alreadyOpen);
+      this.openFilesService.addFile({ ...alreadyOpen, os: this.os });
       return;
     }
     const items = (this as any)[item.name];
-    console.log(this);
-    this.openFilesService.addFile({ ...item, items });
+    this.openFilesService.addFile({ ...item, items, os: this.os });
   }
 
   ngOnDestroy() {

@@ -10,6 +10,8 @@ import { OsService } from 'app/shared/services/os.service';
 export class PicViewComponent {
   @Input() project: any;
   os: string = '';
+  maximized: boolean = false;
+
   constructor(
     private projectService: ProjectService,
     private osService: OsService
@@ -18,9 +20,14 @@ export class PicViewComponent {
   ngOnInit() {
     // this.os = this.osService.getOs();
     // used to hide all other cards in html
+
     this.osService.subscribe((data) => {
       this.os = data;
     });
+  }
+
+  ngOnChanges(changes: any) {
+    this.maximized = changes.project.currentValue.height === window.innerHeight;
   }
 
   // emits up to app component to change selected project

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from '../../core/project.service';
-import { IFolderItem } from 'app/shared/interfaces';
+import { IFolderItem, IOpenFile } from 'app/shared/interfaces';
 import { OsService } from 'app/shared/services/os.service';
 @Component({
   selector: 'app-folder-items',
@@ -8,7 +8,7 @@ import { OsService } from 'app/shared/services/os.service';
   styleUrls: ['./folder-items.component.sass'],
 })
 export class FolderItemsComponent implements OnInit {
-  @Input() files: any;
+  @Input() files: any[];
   paused: boolean = false;
   os: string = '';
   constructor(

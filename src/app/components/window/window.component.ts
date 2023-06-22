@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { wait } from '../../helpers/helper';
 import { OsService } from 'app/shared/services/os.service';
+import { IOpenFile } from 'app/shared/interfaces';
 
 const enum Status {
   OFF = 0,
@@ -31,7 +32,7 @@ export class WindowComponent implements AfterViewInit {
   public mouse: any;
   public status: Status = Status.OFF;
   private mouseClick: any;
-  @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() closed: EventEmitter<IOpenFile> = new EventEmitter<IOpenFile>();
   mouseMoveListener: any;
   touchMoveListener: any;
   os: string = '';
@@ -159,13 +160,13 @@ export class WindowComponent implements AfterViewInit {
   // resizes window
   private resize() {
     this.box.nativeElement.style.transition = 'all 0s';
-
-    this.project.width = Number(this.mouse.x > this.boxPosition.left)
+    const width = Number(this.mouse.x > this.boxPosition.left)
       ? this.mouse.x - this.boxPosition.left
       : 0;
-    this.project.height = Number(this.mouse.y > this.boxPosition.top)
+    const height = Number(this.mouse.y > this.boxPosition.top)
       ? this.mouse.y - this.boxPosition.top
       : 0;
+    this.project = { ...this.project, width, height };
   }
 
   // moves window
@@ -190,7 +191,7 @@ export class WindowComponent implements AfterViewInit {
   // restore and maximize window
   maximizeClicked() {
     const { innerHeight, innerWidth } = window;
-    const padding = this.osService.getOs() === 'mac' ? 0 : 40;
+    const padding = this.os === 'mac' ? 0 : 40;
     // if not maximized cache dimensions for when restored
     if (
       this.project.width !== innerWidth &&
@@ -201,11 +202,21 @@ export class WindowComponent implements AfterViewInit {
       this.cachedLeft = this.project.left;
       this.cachedTop = this.project.top;
     }
+
     // if already full screen restore to cached size and position
     if (
       this.project.width === innerWidth &&
       this.project.height === innerHeight - padding
     ) {
+      // for phone size opens at full width and height so no cached
+      if (this.cachedHeight === undefined) {
+        return this.updateSize(
+          this.project.width / 2,
+          this.project.height / 2,
+          32,
+          16
+        );
+      }
       if (
         this.cachedWidth !== innerWidth &&
         this.cachedHeight !== innerHeight
@@ -219,10 +230,6 @@ export class WindowComponent implements AfterViewInit {
 
         return;
       }
-
-      // for phone size opens at full width and height so no cached
-      this.updateSize(this.project.width / 2, this.project.height / 2, 32, 16);
-      return;
     }
 
     // otherwise make window max width and height
@@ -232,10 +239,8 @@ export class WindowComponent implements AfterViewInit {
   // sets dimensions and postion of window
   updateSize(width: number, height: number, left: number, top: number) {
     window.requestAnimationFrame(() => {
-      this.project.width = width;
-      this.project.height = height;
-      this.project.left = left;
-      this.project.top = top;
+      this.project = { ...this.project, width, height, left, top };
+
       this.box.nativeElement.style.transform = `translate3d(${left}px, ${top}px, 0px) scale(1)`;
     });
   }

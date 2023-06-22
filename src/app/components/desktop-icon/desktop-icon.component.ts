@@ -9,7 +9,10 @@ import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
   styleUrls: ['./desktop-icon.component.sass'],
 })
 export class DesktopIconComponent implements OnInit {
-  boxOptions: any = { paused: true, loop: false };
+  boxOptions: { paused: boolean; loop: boolean; name?: string } = {
+    paused: true,
+    loop: false,
+  };
   icons: IDesktopIcon[] = [];
   @Output() iconClicked: EventEmitter<IDesktopIcon> =
     new EventEmitter<IDesktopIcon>();
