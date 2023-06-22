@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IDesktopIcon } from 'app/shared/interfaces';
 import { OsService } from 'app/shared/services/os.service';
 
 @Component({

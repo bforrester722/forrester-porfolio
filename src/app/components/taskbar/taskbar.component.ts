@@ -13,6 +13,7 @@ import {
   ISecondMenu,
   IIcons,
   IAnimation,
+  IOpenFile,
 } from '../../shared/interfaces';
 
 @Component({
@@ -25,8 +26,10 @@ export class TaskbarComponent implements OnInit {
   @Input() animations: IAnimation[] = [];
   @Input() openFiles: any;
   @Input() portfolio: any;
-  @Output() selected: EventEmitter<object> = new EventEmitter<object>();
-  @Output() maximize: EventEmitter<string> = new EventEmitter<string>();
+  @Output() selected: EventEmitter<ISecondMenu> =
+    new EventEmitter<ISecondMenu>();
+  @Output() maximize: EventEmitter<IOpenFile> = new EventEmitter<IOpenFile>();
+
   appTime: string = '';
   appDate: string = '';
   cached: string = '';
@@ -35,6 +38,7 @@ export class TaskbarComponent implements OnInit {
   openWidth: number = 200;
   secondMenu: ISecondMenu[] = [];
   startMenuItems: IStartMenu[] = [];
+  newOpen: any = [];
 
   // closes start menus if clicked outside of them
   @HostListener('window:click', ['$event'])
@@ -63,29 +67,18 @@ export class TaskbarComponent implements OnInit {
 
   ngOnChanges(changes: any) {
     if (changes.openFiles) {
+      const maxOpen = Math.max(...this.openFiles.map((o: any) => o.openIndex));
+      this.newOpen = this.openFiles.map((file: any) => {
+        return file.openIndex === maxOpen
+          ? { ...file, lastClicked: true }
+          : { ...file, lastClicked: false };
+      });
       const width =
         (window.innerWidth - (200 + 22 * this.openFiles.length)) /
         this.openFiles.length;
 
       this.openWidth = width > 200 ? 200 : width;
     }
-  }
-
-  // sets width on open tabs based on number of files openFiles
-  // adds styles to active tab
-  styleTab(project: any): Object {
-    const width =
-      (window.innerWidth - (200 + 22 * this.openFiles.length)) /
-      this.openFiles.length;
-    const openWidth = width > 200 ? 200 : width;
-    if (project.lastClicked) {
-      return {
-        width: `${openWidth}px`,
-        background: '#d3d3d3',
-        boxShadow: 'inset 2px 2px 2px black, inset -2px -2px 2px white',
-      };
-    }
-    return { width: `${openWidth}px` };
   }
 
   // sets date and time for taskbar
@@ -138,7 +131,7 @@ export class TaskbarComponent implements OnInit {
   }
 
   // closes menus then emits up to app to open correct viewer
-  async secondMenuItemClicked(project: object) {
+  async secondMenuItemClicked(project: ISecondMenu) {
     this.closeMenus();
     this.selected.emit(project);
   }

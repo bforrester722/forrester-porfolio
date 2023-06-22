@@ -5,6 +5,7 @@ import {
   Input,
   Output,
   ElementRef,
+  SimpleChanges,
 } from '@angular/core';
 import {
   animate,
@@ -14,7 +15,11 @@ import {
   trigger,
 } from '@angular/animations';
 import { DataService } from '../../core/data.service';
-import { IDesktopIcon } from '../../shared/interfaces';
+import {
+  IDesktopIcon,
+  ILottieOptions,
+  IOpenFile,
+} from '../../shared/interfaces';
 import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 import { wait } from 'app/helpers/helper';
 import { OpenFilesService } from 'app/shared/services/open-files.service';
@@ -54,22 +59,22 @@ interface Data extends IDesktopIcon {
   ],
 })
 export class MacTaskbarComponent {
-  @Output() maximize: EventEmitter<string> = new EventEmitter<string>();
+  @Output() maximize: EventEmitter<IOpenFile> = new EventEmitter<IOpenFile>();
   @Output() iconClicked: EventEmitter<IDesktopIcon> =
     new EventEmitter<IDesktopIcon>();
 
   // closes opened if clicked outside of area
   @HostListener('document:mousedown', ['$event'])
-  onGlobalClick(event: any): void {
+  onGlobalClick(event: MouseEvent): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.showOpened = false;
     }
   }
   icons: Data[] = [];
   animate = '';
-  boxOptions: any = { paused: true, loop: false };
-  openFiles: any = [];
-  opened: any = [];
+  boxOptions: ILottieOptions = { paused: true, loop: false };
+  openFiles: IOpenFile[];
+  opened: IOpenFile[];
   showOpened: boolean = false;
 
   constructor(
@@ -92,24 +97,27 @@ export class MacTaskbarComponent {
   }
 
   // catch changes to update animation
-  ngOnChanges(changes: any) {
+  ngOnChanges(changes: SimpleChanges) {
     this.icons.forEach((icon, index) => {
-      const found = changes.openFiles.currentValue.find(
-        (file: any) => file.name === icon.name
+      const found = changes['openFiles'].currentValue.find(
+        (file: IOpenFile) => file.name === icon.name
       );
       found
         ? (this.icons[index] = { ...this.icons[index], open: true })
         : (this.icons[index] = { ...this.icons[index], open: false });
     });
   }
-  checkPicOpen(data: any) {
+
+  checkPicOpen(data: IOpenFile[]) {
     this.icons.forEach((icon, index) => {
-      const found = data.find((file: any) => file.name === icon.name);
+      const found = data.find((file: IOpenFile) => file.name === icon.name);
       found
         ? (this.icons[index] = { ...this.icons[index], open: true })
         : (this.icons[index] = { ...this.icons[index], open: false });
     });
-    const viewer = data?.filter((change: any) => change?.viewer === 'pic');
+    const viewer = data?.filter(
+      (change: IOpenFile) => change?.viewer === 'pic'
+    );
     this.opened = viewer;
   }
 
@@ -117,7 +125,7 @@ export class MacTaskbarComponent {
     this.showOpened = !this.showOpened;
   }
 
-  openedIconClicked(item: any) {
+  openedIconClicked(item: IOpenFile) {
     this.maximize.emit(item);
     this.showOpened = !this.showOpened;
   }

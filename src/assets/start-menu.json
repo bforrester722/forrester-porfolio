@@ -1,29 +1,23 @@
 [
   {
-    "name": "portfolio",
-    "icon": "folder_open"
+    "name": "portfolio"
   },
   {
-    "name": "animations",
-    "icon": "live_tv"
+    "name": "animations"
   },
   {
-    "name": "icons",
-    "icon": "adb"
+    "name": "icons"
   },
   {
     "option": "disable",
-    "name": "games",
-    "icon": "games"
+    "name": "games"
   },
   {
     "option": "disable",
-    "name": "settings",
-    "icon": "settings"
+    "name": "settings"
   },
   {
     "option": "disable",
-    "name": "shut down",
-    "icon": ""
+    "name": "shut down"
   }
 ]

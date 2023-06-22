@@ -15,6 +15,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { IOpenFile } from 'app/shared/interfaces';
 @Component({
   selector: 'app-mac-taskbar-icon',
   templateUrl: './mac-taskbar-icon.component.html',
@@ -60,7 +61,7 @@ import {
 export class MacTaskbarIconComponent {
   @Input() openFiles: any;
   @Input() showOpened: boolean;
-  @Output() maximize: EventEmitter<string> = new EventEmitter<string>();
+  @Output() maximize: EventEmitter<IOpenFile> = new EventEmitter<IOpenFile>();
   animateIcons: boolean = true;
 
   ngOnChanges(changes: any) {

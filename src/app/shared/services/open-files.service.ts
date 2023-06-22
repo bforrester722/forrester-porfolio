@@ -19,10 +19,10 @@ export class OpenFilesService {
   }
 
   // For having windows open with random dimensions and placement
-  getRandom() {
+  getRandom(os: string) {
     // if small screen open full width and height
     if (window.innerWidth < 700) {
-      const height = window.innerHeight - 40;
+      const height = os == 'mac' ? window.innerHeight : window.innerHeight - 40;
       const width = window.innerWidth;
       return { height, width, left: 0, top: 0 };
     }
@@ -56,7 +56,7 @@ export class OpenFilesService {
     const builtItem = {
       uuid: uuid(),
       ...file,
-      ...this.getRandom(),
+      ...this.getRandom(file.os),
       openIndex: this.getHigherIndex(oldFiles),
     };
 

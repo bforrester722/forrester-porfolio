@@ -1,11 +1,12 @@
 <lottie-player
   #lottieAnimation
+  *ngIf="newOptions?.path"
   [name]="animation"
-  [autoplay]="!options.paused"
-  [src]="options.path"
-  [loop]="options.loop !== false"
+  [autoplay]="!newOptions.paused"
+  [src]="newOptions.path"
+  [loop]="newOptions.loop !== false"
   (mouseover)="handleUnpaused()"
   (mouseleave)="handlePaused()"
-  [style]="options.style"
+  [style]="newOptions.style"
 >
 </lottie-player>

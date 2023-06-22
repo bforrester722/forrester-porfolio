@@ -1,93 +1,76 @@
 [
   {
     "name": "animations",
-    "viewer": "pic",
-    "type": "animation",
-    "bg": "black"
+    "bg": "black",
+    "size": "67 KB*"
   },
   {
     "name": "box",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "208 KB*"
   },
   {
     "name": "meteor",
-    "viewer": "pic",
-    "type": "animation",
-    "bg": "black"
+    "bg": "black",
+    "size": "392 KB*"
   },
 
   {
     "name": "me",
-    "viewer": "pic",
-    "type": "animation",
-    "bg": "black"
+    "bg": "black",
+    "size": "74 KB*"
   },
   {
     "name": "readme",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "33 KB*"
   },
   {
     "name": "russ",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "188 KB*"
   },
   {
     "name": "vader",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "99 KB*"
   },
   {
     "name": "gameboy",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "62 KB*"
   },
   {
     "name": "gameboy_advance",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "105 KB*"
   },
   {
     "name": "linkable",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "238 KB*"
   },
   {
     "name": "offline",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "439 KB*"
   },
   {
     "name": "performance",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "190 KB*"
   },
   {
     "name": "responsive",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "289 KB*"
   },
   {
     "name": "security",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "66 KB*"
   },
   {
     "name": "third_party",
-    "viewer": "pic",
-    "type": "animation"
+    "size": "85 KB*"
   },
   {
     "name": "react_demo",
-    "viewer": "pic",
-    "type": "animation",
-    "bg": "black"
+    "bg": "black",
+    "size": "61 KB*"
   },
   {
     "name": "text_bubbles",
-    "viewer": "pic",
-    "type": "animation",
-    "bg": "black"
+    "bg": "black",
+    "size": "34 KB*"
   }
 ]
