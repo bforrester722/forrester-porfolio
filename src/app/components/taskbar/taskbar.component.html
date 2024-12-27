@@ -33,10 +33,11 @@
 
 <div class="taskbar">
   <div class="start-btn dont-close" (click)="startClicked()">Start</div>
-  <div *ngFor="let item of openFiles">
+  <div *ngFor="let item of newOpen; let i = index">
     <div
       *ngIf="item.name"
-      [ngStyle]="styleTab(item)"
+      [style.width.px]="openWidth"
+      [ngClass]="item.lastClicked ? 'opened' : ''"
       class="tab"
       (click)="tabClicked(item)"
     >

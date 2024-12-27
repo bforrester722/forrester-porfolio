@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" [ngClass]="{ maximized: maximized }">
   <mat-icon
     class="left-arrow"
     [ngStyle]="{ color: project.bg || os === 'mac' ? 'white' : 'black' }"
@@ -8,11 +8,18 @@
   </mat-icon>
 
   <img *ngIf="project.src" src="{{ project.src }}" draggable="false" />
+
   <app-lottie
     *ngIf="!project.src"
     [animation]="project.name"
     draggable="false"
   ></app-lottie>
+  <div
+    class="name"
+    [style.color]="project.bg || os === 'mac' ? 'white' : 'black'"
+  >
+    <div [style.fontSize]="'14px'">({{ project.size }})</div>
+  </div>
 
   <mat-icon
     class="right-arrow"

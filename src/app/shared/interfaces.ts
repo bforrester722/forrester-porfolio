@@ -9,6 +9,8 @@ export interface IStartMenu {
 export interface ISecondMenu {
   index: number;
   name: string;
+  size: string;
+  type: string;
   viewer: string;
   icon?: string;
 }
@@ -29,7 +31,6 @@ export interface IIcons {
 
 // for data.service, app, and taskbar
 export interface IPortfolio {
-  index: number;
   link: string;
   name: string;
   paragraph: string;
@@ -44,11 +45,13 @@ export interface IDesktopIcon {
   animation?: string;
   icon: string;
   name: string;
+  link: string;
   viewer: string;
   education?: any;
   src?: string;
   paragraph?: string;
   todos?: any;
+  experience: any;
 }
 
 export interface ILottie {
@@ -61,10 +64,17 @@ export interface ILottie {
 
 // for folder-items-component
 export interface IFolderItem {
+  bg: string;
   index: number;
   name: string;
-  viewer: string;
+  size: string;
   src?: string;
+  viewer: string;
+}
+
+export interface ILottieOptions {
+  loop: boolean;
+  paused: boolean;
 }
 // for app component
 export interface IOpenFile {

@@ -12,7 +12,7 @@
       "id": "image_0",
       "w": 939,
       "h": 538,
-      "u": "images/",
+      "u": "assets/animations/images/",
       "p": "advanced_console.png",
       "e": 0
     },
@@ -20,7 +20,7 @@
       "id": "image_1",
       "w": 375,
       "h": 667,
-      "u": "images/",
+      "u": "assets/animations/images/",
       "p": "game_console.png",
       "e": 0
     },

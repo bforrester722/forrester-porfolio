@@ -4,23 +4,25 @@ import {
   HostListener,
   Input,
   Output,
-  SimpleChanges,
   ElementRef,
-  ViewChild,
+  SimpleChanges,
 } from '@angular/core';
 import {
   animate,
   keyframes,
-  query,
-  stagger,
   style,
   transition,
   trigger,
 } from '@angular/animations';
 import { DataService } from '../../core/data.service';
-import { IDesktopIcon } from '../../shared/interfaces';
+import {
+  IDesktopIcon,
+  ILottieOptions,
+  IOpenFile,
+} from '../../shared/interfaces';
 import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 import { wait } from 'app/helpers/helper';
+import { OpenFilesService } from 'app/shared/services/open-files.service';
 
 interface Data extends IDesktopIcon {
   open?: boolean;
@@ -57,28 +59,29 @@ interface Data extends IDesktopIcon {
   ],
 })
 export class MacTaskbarComponent {
-  @Input() openFiles: any;
-  @Output() maximize: EventEmitter<string> = new EventEmitter<string>();
+  @Output() maximize: EventEmitter<IOpenFile> = new EventEmitter<IOpenFile>();
   @Output() iconClicked: EventEmitter<IDesktopIcon> =
     new EventEmitter<IDesktopIcon>();
 
   // closes opened if clicked outside of area
   @HostListener('document:mousedown', ['$event'])
-  onGlobalClick(event: any): void {
+  onGlobalClick(event: MouseEvent): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.showOpened = false;
     }
   }
   icons: Data[] = [];
   animate = '';
-  boxOptions: any = { paused: true, loop: false };
-  opened: any = [];
+  boxOptions: ILottieOptions = { paused: true, loop: false };
+  openFiles: IOpenFile[];
+  opened: IOpenFile[];
   showOpened: boolean = false;
 
   constructor(
     private dataService: DataService,
     private elementRef: ElementRef,
-    private analytics: AngularFireAnalytics
+    private analytics: AngularFireAnalytics,
+    private openFilesService: OpenFilesService
   ) {}
 
   ngOnInit(): void {
@@ -86,25 +89,35 @@ export class MacTaskbarComponent {
     this.dataService.getDesktopIcons().subscribe((desktop: IDesktopIcon[]) => {
       this.icons = desktop;
     });
+
+    this.openFilesService.subscribe((data) => {
+      this.openFiles = data;
+      this.checkPicOpen(data);
+    });
   }
 
   // catch changes to update animation
-  ngOnChanges(changes: any) {
+  ngOnChanges(changes: SimpleChanges) {
     this.icons.forEach((icon, index) => {
-      const found = changes.openFiles.currentValue.find(
-        (file: any) => file.name === icon.name
+      const found = changes['openFiles'].currentValue.find(
+        (file: IOpenFile) => file.name === icon.name
       );
       found
         ? (this.icons[index] = { ...this.icons[index], open: true })
         : (this.icons[index] = { ...this.icons[index], open: false });
     });
-
-    this.checkPicOpen(changes);
   }
 
-  checkPicOpen(opened: any) {
-    const changes = opened?.openFiles?.currentValue || [];
-    const viewer = changes?.filter((change: any) => change?.viewer === 'pic');
+  checkPicOpen(data: IOpenFile[]) {
+    this.icons.forEach((icon, index) => {
+      const found = data.find((file: IOpenFile) => file.name === icon.name);
+      found
+        ? (this.icons[index] = { ...this.icons[index], open: true })
+        : (this.icons[index] = { ...this.icons[index], open: false });
+    });
+    const viewer = data?.filter(
+      (change: IOpenFile) => change?.viewer === 'pic'
+    );
     this.opened = viewer;
   }
 
@@ -112,19 +125,20 @@ export class MacTaskbarComponent {
     this.showOpened = !this.showOpened;
   }
 
-  openedIconClicked(item: any) {
+  openedIconClicked(item: IOpenFile) {
     this.maximize.emit(item);
     this.showOpened = !this.showOpened;
   }
 
   async desktopIconClicked(item: any) {
     this.analytics.logEvent('custom_event', { desktopIconClicked: item.name });
-    this.maximize.emit(item);
+    const newItem = this.openFiles.find((file: any) => file.name === item.name);
+    this.maximize.emit(newItem ? newItem : item);
 
     if (this.animate) return;
     this.animate = item.name;
 
-    this.iconClicked.emit(item);
+    this.iconClicked.emit(newItem ? newItem : item);
     await wait(700);
 
     this.animate = '';

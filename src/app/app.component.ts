@@ -16,9 +16,18 @@ import { ProjectService } from './core/project.service';
 import { Subscription } from 'rxjs';
 import { OsService } from './shared/services/os.service';
 // interfaces
-import { IAnimation, IIcons, IPortfolio, IOpenFile } from './shared/interfaces';
+import {
+  IAnimation,
+  IIcons,
+  IPortfolio,
+  IOpenFile,
+  IDesktopIcon,
+  ISecondMenu,
+} from './shared/interfaces';
 import { wait } from './helpers/helper';
-import { v4 as uuid } from 'uuid';
+import { OpenFilesService } from './shared/services/open-files.service';
+import animations from '../assets/animations.json';
+import portfolioJson from '../assets/portfolio.json';
 
 @Component({
   selector: 'app-component',
@@ -40,8 +49,8 @@ export class AppComponent implements OnInit, OnDestroy {
   animations: IAnimation[] = [];
   openFiles: Array<IOpenFile> = [];
   portfolio: IPortfolio[] = [];
-  macBgLottieOptions: any = {};
-  bgLottieOptions: any = {};
+  macBgLottieOptions: { paused: boolean; style: string };
+  bgLottieOptions: { paused: boolean; style: string };
   os: string;
 
   constructor(
@@ -50,6 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private responsive: BreakpointObserver,
     private osService: OsService,
+    private openFilesService: OpenFilesService,
     analytics: AngularFireAnalytics
   ) {
     // ran when arrow in pic-view to change project in window
@@ -57,7 +67,11 @@ export class AppComponent implements OnInit, OnDestroy {
       .getProject()
       .subscribe((project) => {
         if (project) {
-          this.projectChanged(project);
+          this.openFilesService.updateFile(
+            project,
+            this.animations,
+            this.icons
+          );
         }
       });
 
@@ -70,25 +84,22 @@ export class AppComponent implements OnInit, OnDestroy {
           this.openFile(project);
         }
       });
-
-    // gets animation data from animations.json, sorts by name, and adds index
-    this.animationsSubscription = this.dataService
-      .getAnimations()
-      .subscribe((animations) => {
-        if (animations) {
-          const sorted = animations.sort((a, b) => (a.name > b.name ? 1 : -1));
-          this.animations = sorted.map((animation, index) => {
-            return { ...animation, index };
-          });
-        }
-      });
   }
 
   ngOnInit() {
-    // this.os = this.osService.getOs();
+    const sorted = animations.sort((a, b) => (a.name > b.name ? 1 : -1));
+    this.animations = sorted.map((animation, index) => {
+      return { ...animation, index, type: 'animation', viewer: 'pic' };
+    });
+    // used to get portfolio json
+    this.portfolio = portfolioJson;
     // used to hide all other cards in html
     this.osService.subscribe((data) => {
       this.os = data;
+    });
+
+    this.openFilesService.subscribe((data) => {
+      this.openFiles = [...data];
     });
 
     // fixes address bar on phones making 100vh not work correctly
@@ -114,124 +125,48 @@ export class AppComponent implements OnInit, OnDestroy {
         return { ...animation, index, viewer: 'pic' };
       });
     });
-    // used to get portfolio json
-    this.dataService.getPortfolio().subscribe((portfolio: any) => {
-      this.portfolio = portfolio;
-    });
   }
 
   // fixes address bar on phones making 100vh not work correctly
-  onResize(event: any) {
-    const { innerHeight } = event.target;
+  onResize(event: Event) {
+    const { innerHeight } = event.target as Window;
     this.screenHeight = innerHeight;
   }
 
-  // ran when left or right clicked from pic-view
-  projectChanged(project: IOpenFile) {
-    const { bg, ...rest } = project;
-    const { index, openIndex } = rest;
-    const type = project.src ? this.icons : this.animations;
-    // get index of left or right
-    const newIndex =
-      index + 1 > type.length ? 0 : index === -1 ? type.length - 1 : index;
-
-    this.openFiles.splice(openIndex, 1, {
-      ...rest,
-      ...type[newIndex],
-      lastClicked: true,
-    });
-    this.openFiles = [...this.openFiles];
-  }
-
   // emitted from taskbar to maximize window
-  maximizeWindow(project: any) {
-    const newProject: any = this.openFiles.find(
-      (file) => file.name === project.name
+  maximizeWindow(project: IOpenFile) {
+    const newProjectIndex: number = this.openFiles.findIndex(
+      (file) => file.uuid === project.uuid
     );
-    if (!newProject) return;
-    this.childrenFolder.toArray()[newProject.openIndex].maximize();
+    if (newProjectIndex < 0) return;
+    this.childrenFolder.toArray()[newProjectIndex].maximize();
     this.setLastClicked(project);
   }
 
-  // For having windows open with random dimensions and placement
-  getRandom() {
-    // if small screen open full width and height
-    if (window.innerWidth < 700) {
-      const height = window.innerHeight - 40;
-      const width = window.innerWidth;
-      return { height, width, left: 0, top: 0 };
-    }
-    const plus = window.innerWidth / 4;
-    const height = Math.floor(Math.random() * 200) + plus;
-    const width = height + 100;
-    const top = Math.floor(Math.random() * 200) + 50;
-    const left = Math.floor(Math.random() * plus) + plus / 12;
-    return { height, width, top, left };
-  }
-
   // push selected file to openFiles and add index for keeping track of file
-  openFile(data: any) {
-    if (!data) {
-      return;
-    }
-
-    const updated = {
-      ...data,
-      ...this.getRandom(),
-      uuid: uuid(),
-      openIndex: this.openFiles.length,
-    };
-    // this.openFiles.push(updated);
-    this.openFiles = [...this.openFiles, updated];
-    this.setLastClicked(updated);
+  openFile(data: ISecondMenu) {
+    this.openFilesService.addFile({ ...data, os: this.os });
   }
 
   // sets lastClicked for making last selected viewer on top
-  // TODO other previous windows need to be on top in order of last viewed
-  setLastClicked(data: any) {
-    this.openFiles.map((file) => {
-      if (file.name === data.name) {
-        file.lastClicked = true;
-        return;
-      }
-      file.lastClicked = false;
-    });
+  setLastClicked(data: IOpenFile) {
+    this.openFilesService.updateLast(data);
   }
 
   // removes file from openFiles when window closed
-  windowClosed(project: any) {
-    this.openFiles.splice(project.openIndex, 1);
-    const newOpen = this.openFiles.map((file, index) => {
-      file.openIndex = index;
-      return file;
-    });
-    this.openFiles = [...newOpen];
+  windowClosed(project: IOpenFile) {
+    this.openFilesService.removeFile(project);
   }
 
   // opens folder and passes in data
-  openDesktopFolder(item: any) {
-    const items = (this as any)[item.name];
+  openDesktopFolder(item: IDesktopIcon) {
     const alreadyOpen = this.openFiles.find((file) => file.name === item.name);
     if (alreadyOpen) {
-      this.setLastClicked({
-        ...item,
-        openIndex: this.openFiles.length,
-        lastClicked: true,
-      });
+      this.openFilesService.addFile({ ...alreadyOpen, os: this.os });
       return;
     }
-
-    const builtItem = {
-      lastClicked: true,
-      items,
-      openIndex: this.openFiles.length,
-      uuid: uuid(),
-      ...item,
-      ...this.getRandom(),
-    };
-
-    this.openFiles = [...this.openFiles, builtItem];
-    this.setLastClicked(builtItem);
+    const items = (this as any)[item.name];
+    this.openFilesService.addFile({ ...item, items, os: this.os });
   }
 
   ngOnDestroy() {

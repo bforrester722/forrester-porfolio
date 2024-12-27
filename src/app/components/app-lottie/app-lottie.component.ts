@@ -1,5 +1,14 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { ILottie } from 'app/shared/interfaces';
+export interface IOptions {
+  paused: boolean;
+  loop?: boolean;
+  style?: string;
+}
+
+export interface INewOptions extends IOptions {
+  path: string;
+}
 
 @Component({
   selector: 'app-lottie',
@@ -8,20 +17,29 @@ import { ILottie } from 'app/shared/interfaces';
 })
 export class AppLottieComponent {
   @Input() animation: string = '';
-  @Input() options: any = {};
+  @Input() options: IOptions;
+  newOptions: INewOptions;
   @ViewChild('lottieAnimation') lottieAnimation: { nativeElement: ILottie };
 
   // loads animation on init
   ngOnInit() {
-    this.options = {
+    this.playAnimation();
+  }
+
+  async playAnimation(): Promise<void> {
+    const json = await import(
+      `../../../assets/animations/${this.animation}.json`
+    );
+
+    this.newOptions = {
       ...this.options, // In case you have other properties that you want to copy
-      path: `../../assets/animations/${this.animation}.json`,
+      path: json.default,
     };
   }
 
   // catch changes to update animation
-  ngOnChanges(changes: any) {
-    this.updateAnimation(changes.options?.currentValue);
+  ngOnChanges(changes: SimpleChanges) {
+    this.updateAnimation(changes['options']?.currentValue);
   }
 
   // pauses or plays animation

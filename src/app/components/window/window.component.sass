@@ -2,10 +2,10 @@
 
 .resizable-draggable 
   transition:         width  .25s, height .25s
-  min-width:          400px
   min-height:         250px
   position:           absolute
   box-shadow:         8px 8px 6px 1px rgba(0, 0, 0, 0.3), 0px 0px 0px .5px rgba(0, 0, 0, 1)
+  min-width:          300px
 
 .blur
   backdrop-filter: 				blur(16px)
@@ -41,8 +41,10 @@
 .macToolbar 
   background-color: #222222
   color: white
-  justify-content:  center
+  justify-content:  space-between
   box-shadow:     0px 2px 2px 1px rgba(0, 0, 0, 0.3)
+  flex-direction: row-reverse
+
 
 .title
   padding-left:   8px
@@ -54,10 +56,6 @@
 mat-icon 
   margin:           4px
 
-.macIcons 
-  position: absolute
-  left: 0
-  top: 0
 
 .windowsIcons
   mat-icon 
